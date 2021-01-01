@@ -52,6 +52,7 @@ export default {
   min-height: 300px;
   background: #fff;
   padding: 30px;
+  overflow: hidden;
 }
 .main-right{
   width: 22%;
