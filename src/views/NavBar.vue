@@ -18,22 +18,23 @@
         <el-menu-item index="news">今日热点</el-menu-item>
         <el-menu-item index="wool">福利羊毛</el-menu-item>
         </el-menu>
-       <div class="header-userinfo">
-         <!-- <div class="header-name">
-           <p>学宝儿</p>
-         </div> -->
+       <div class="header-userinfo" v-if="name">
+           <div class="header-name">
+           <p>{{name}}</p>
+         </div>
           <!-- 头像 -->
        <div class="headImg">
-          <img  src="" alt="">
+          <img  :src="avatar" alt="">
        </div>
-       <div @click="login" style="cursor: pointer;">登录</div>
        </div>
+       <div v-else @click="login" style="cursor: pointer;">登录</div>
       </el-header>
       <Login @beforeClose="beforeClose" :isShow="isShow"/>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Login from '@/components/Login'
 export default {
   components: { Login },
@@ -42,6 +43,12 @@ export default {
       activeIndex: 'index',
       isShow: false
     }
+  },
+  computed: {
+    ...mapGetters([
+      'avatar',
+      'name'
+    ])
   },
   methods: {
     handleSelect (key, keyPath) {
@@ -59,7 +66,7 @@ export default {
 
 <style>
 .el-menu{
-  min-width: 72%;
+  min-width: 64%;
 }
 .el-header{
   background: #fff;
@@ -86,8 +93,12 @@ export default {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: red;
+  /* background: red; */
+  border: 2px solid #eeeeee;
   overflow: hidden;
+}
+.headImg img{
+  width: 100%;
 }
 .el-menu-item{
   border: none !important;

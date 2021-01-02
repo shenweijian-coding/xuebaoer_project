@@ -50,10 +50,11 @@ export default {
       const { id, expiresIn, imgSrc } = res
       this.wxUrl = 'data:image/png;base64,' + imgSrc
       // 调用循环  检测用户扫码
+      console.log('开始轮询')
       await this.waitToSubscribe(id, expiresIn)
+      console.log('扫码成功, 开始从cookie获取头像昵称')
+      this.$store.dispatch('getUserInfo')
       console.log('用户扫码进去成功')
-      // const { imgSrc } = res
-      // this.wxUrl = `data:image/png;base64,${imgSrc}`
     },
     // 循环请求  检测扫码
     async waitToSubscribe (id, timeout) {
@@ -68,7 +69,7 @@ export default {
           })
           console.log(res)
           if (!res) return
-          if (res.errno === 0) resolve('subscribe')
+          if (res.errno === 0) resolve('扫码成功')
           else if (countdown-- > 0) window.QRCodeTimer = setTimeout(loop, 3000)
         }
         loop()
