@@ -1,14 +1,15 @@
 import { getToken } from '../utils/auth'
-import { store } from '../store'
+import store from '../store/index'
 const axios = require('axios')
 
 var instance = axios.create({
   baseURL: 'http://localhost:3000',
-  timeout: 60000
+  timeout: 60000,
+  withCredentials: true
 })
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
-  if (store.getters.token) {
+  if (store.state.token) {
     // let each request carry token
     // ['X-Token'] is a custom headers key
     // please modify it according to the actual situation

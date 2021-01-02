@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const Token = 'user'
+const Token = 'openID'
 
 export function getToken () {
   return Cookies.get(Token)

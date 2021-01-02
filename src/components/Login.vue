@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-dialog
+    @open="handleLogin"
       title=""
       :visible.sync="isShow"
       width="44%"
@@ -14,7 +15,7 @@
         </div>
         <div class="login login-right">
           <div class="title">微信扫码登录</div>
-          <img src="../assets/vxerweima.jpg" alt="">
+          <img :src=wxUrl alt="">
         </div>
       </div>
     </el-dialog>
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     isShow: {
@@ -29,13 +31,48 @@ export default {
       default () {}
     }
   },
+  created () {
+    console.log('我显示了')
+  },
   data () {
     return {
+      wxUrl: ''
     }
   },
   methods: {
     beforeClose () {
       this.$emit('beforeClose', false)
+      clearTimeout(window.QRCodeTimer)
+    },
+    async handleLogin () {
+      console.log('我打开了')
+      const res = await this.$store.dispatch('login')
+      const { id, expiresIn, imgSrc } = res
+      this.wxUrl = 'data:image/png;base64,' + imgSrc
+      // 调用循环  检测用户扫码
+      await this.waitToSubscribe(id, expiresIn)
+      console.log('用户扫码进去成功')
+      // const { imgSrc } = res
+      // this.wxUrl = `data:image/png;base64,${imgSrc}`
+    },
+    // 循环请求  检测扫码
+    async waitToSubscribe (id, timeout) {
+      const _this = this
+      let countdown = Math.ceil(timeout / 3)
+      return new Promise((resolve, reject) => {
+        const loop = async function () {
+          const res = await _this.$request({
+            url: 'wechat/check',
+            method: 'get',
+            params: { id }
+          })
+          console.log(res)
+          if (!res) return
+          if (res.errno === 0) resolve('subscribe')
+          else if (countdown-- > 0) window.QRCodeTimer = setTimeout(loop, 3000)
+        }
+        loop()
+      })
     }
   }
 }

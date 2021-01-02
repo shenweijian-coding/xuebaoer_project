@@ -1,9 +1,5 @@
 <template>
-
   <div>
-    <remote-js src="https://cdn.bootcdn.net/ajax/libs/video.js/7.10.1/alt/video.core.js"></remote-js>
-    <remote2-js src="https://cdn.bootcdn.net/ajax/libs/videojs-contrib-hls/5.9.0/videojs-contrib-hls.js"></remote2-js>
-    <remote-css href="https://cdn.bootcdn.net/ajax/libs/video.js/7.10.1/alt/video-js-cdn.min.css"></remote-css>
     <el-row>
       <el-col :span="20">
         <el-input style="width:98%" v-model="videoLink" placeholder="请输入视频链接"></el-input>
@@ -12,49 +8,58 @@
     </el-row>
     <el-row style="margin-top:30px">
     <el-col :span="20">
-          <video id="play-video" width="850" height='500' class="video-js vjs-default-skin"
-      autoplay="autoplay" controls="controls" loop="loop">
-      <source
-        src="https://video.shida66.com/m3u8_sd/2019/08/21/0B4735B2-AA51-162D-73E1-7D4A4AFF39DC_S.m3u8"
-        type="application/x-mpegURL">
-    </video>
+    <video-player  class="video-player vjs-custom-skin"
+      style='width: 100%;height: auto'
+     ref="videoPlayer"
+     title="QQ1834638245"
+     :playsinline="true"
+     :options="playerOptions"
+    ></video-player>
     </el-col>
     </el-row>
+    <Login @beforeClose="beforeClose" :isShow="isShow"/>
   </div>
 </template>
 
 <script>
 import { isURL } from '../utils/helper'
+import { getToken } from '../utils/auth'
+import Login from '@/components/Login'
+import { videoPlayer } from 'vue-video-player'
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
+import 'videojs-contrib-hls'
 export default {
   components: {
-    'remote-js': {
-      render (createElement) {
-        return createElement('script', { attrs: { type: 'text/javascript', src: this.src } })
-      },
-      props: {
-        src: { type: String, required: true }
-      }
-    },
-    'remote2-js': {
-      render (createElement) {
-        return createElement('script', { attrs: { type: 'text/javascript', src: this.src } })
-      },
-      props: {
-        src: { type: String, required: true }
-      }
-    },
-    'remote-css': {
-      render (createElement) {
-        return createElement('link', { attrs: { rel: 'stylesheet', href: this.href } })
-      },
-      props: {
-        href: { type: String, required: true }
-      }
-    }
+    Login,
+    videoPlayer
   },
   data () {
     return {
-      videoLink: ''
+      videoLink: '',
+      isShow: false,
+      playerOptions: {
+        playbackRates: [0.5, 1.0, 1.5, 2.0], // 可选的播放速度
+        overNative: true,
+        autoplay: false, // 是否自动播放
+        controls: true,
+        aspectRatio: '16:9', // 视频比例
+        techOrder: ['html5'],
+        poster: '', // 你的封面地址
+        notSupportedMessage: '请刷新重新获取，多次错误请联系QQ1834638245', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
+        sourceOrder: true,
+        flash: {
+          hls: { withCredentials: false }
+        },
+        html5: { hls: { withCredentials: false } },
+        sources: [
+          {
+            withCredentials: false,
+            type: 'application/x-mpegURL',
+            src: ''
+          }
+        ]
+      }
     }
   },
   created () {
@@ -72,14 +77,25 @@ export default {
         this.$message.error('请输入正确的播放链接')
         return
       }
+      console.log(getToken())
+      // if (!getToken()) {
+      //   // 未登录  弹出登录弹窗
+      //   this.isShow = true
+      //   return
+      // }
       const res = await this.$request({
         url: 'api/play',
         method: 'get'
       })
-      console.log(res)
+
+      console.log(res.res.url)
+      this.playerOptions.sources[0].src = res.res.url
       // eslint-disable-next-line no-undef
-      const player = videojs('play-video', { playbackRates: [0.5, 1, 1.5, 2] })
-      player.play()
+      // const player = videojs('play-video', { playbackRates: [0.5, 1, 1.5, 2] })
+      // player.play()
+    },
+    beforeClose () {
+      this.isShow = false
     }
   }
 }
