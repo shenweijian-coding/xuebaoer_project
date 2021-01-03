@@ -11,7 +11,12 @@
       </div>
       <!-- 右面部分 -->
       <div class="main-right">
-        个人信息
+        <ul>
+          <li><a href=""><img src="" alt=""></a></li>
+        </ul>
+        <ul>
+          <li><a href=""><img src="" alt=""></a></li>
+        </ul>
       </div>
       </div>
     </div>
@@ -33,10 +38,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .main{
   width: 100%;
   height: 100%;
+}
+ul{
+    padding: 0;
+}
+ul li {
+  list-style-type: none;
+}
+.main-right img{
+  width: 100%;
 }
 .main-con{
   width: 80%;

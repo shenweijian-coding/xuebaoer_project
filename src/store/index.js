@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { login } from '../api/login'
-import { getToken } from '../utils/auth'
+import { getToken, removeToken } from '../utils/auth'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -15,6 +15,10 @@ const store = new Vuex.Store({
     },
     SET_NAME: (state, name) => {
       state.name = name
+    },
+    RESET: (state) => {
+      state.avatar = ''
+      state.name = ''
     }
   },
   getters: {
@@ -42,6 +46,13 @@ const store = new Vuex.Store({
         commit('SET_NAME', name)
         resolve({})
       })
+    },
+    takeOut ({ commit }) {
+      commit('RESET')
+      removeToken('name')
+      removeToken('avatar')
+      removeToken('openID')
+      removeToken('eventKey')
     }
   }
 })

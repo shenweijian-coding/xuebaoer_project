@@ -34,7 +34,7 @@ export default {
   color: #2c3e50;
   background: #f4f5f5;
   padding: 0;
-  min-height: 100vh;
+  min-height: 96vh;
 }
   /* 滚动条的整体样式 */
   ::-webkit-scrollbar{

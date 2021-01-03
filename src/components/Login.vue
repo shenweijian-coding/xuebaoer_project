@@ -11,11 +11,16 @@
       <div class="login-con">
         <div class="login login-left">
           <div class="title">温馨提示</div>
-          <img src="../assets/vxerweima.jpg" alt="">
+          <p>1.本站服务均为免费</p>
+          <p>2.微信扫描右方二维码,关注公众号即可自动登录</p>
+          <p>3.本站正常运行需要精力与成本,您可自愿捐赠或分享给您的同事,谢谢支持！</p>
+          <p>4.汲取大家意见,右上方有投稿功能,可提交新功能给站长</p>
+          <!-- <img src="" alt="温馨提示"> -->
         </div>
         <div class="login login-right">
           <div class="title">微信扫码登录</div>
-          <img :src=wxUrl alt="">
+          <img id="wx-img" :src=wxUrl alt="微信二维码【日常学习宝】">
+          <p>Tips:二维码有效期为 3分钟</p>
         </div>
       </div>
     </el-dialog>
@@ -54,6 +59,8 @@ export default {
       await this.waitToSubscribe(id, expiresIn)
       console.log('扫码成功, 开始从cookie获取头像昵称')
       this.$store.dispatch('getUserInfo')
+      this.beforeClose()
+      this.$router.go(0)
       console.log('用户扫码进去成功')
     },
     // 循环请求  检测扫码
@@ -120,6 +127,9 @@ export default {
 .login .title{
   font-size: 18px;
   font-weight: bold;
+}
+.title> p{
+  text-align: left;
 }
 .login img{
   width: 200px;

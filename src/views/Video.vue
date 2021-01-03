@@ -45,8 +45,8 @@ export default {
         controls: true,
         aspectRatio: '16:9', // 视频比例
         techOrder: ['html5'],
-        poster: '', // 你的封面地址
-        notSupportedMessage: '请刷新重新获取，多次错误请联系QQ1834638245', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
+        poster: 'http://qmc5b9ctq.hb-bkt.clouddn.com/video.png', // 你的封面地址
+        notSupportedMessage: '请复制播放链接至上方输入框', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
         sourceOrder: true,
         flash: {
           hls: { withCredentials: false }
@@ -55,8 +55,8 @@ export default {
         sources: [
           {
             withCredentials: false,
-            type: 'application/x-mpegURL',
-            src: ''
+            type: 'application/x-mpegURL'
+            // src: ''
           }
         ]
       }
@@ -78,14 +78,21 @@ export default {
         return
       }
       console.log(getToken())
-      // if (!getToken()) {
-      //   // 未登录  弹出登录弹窗
-      //   this.isShow = true
-      //   return
-      // }
+      if (!getToken('openID')) {
+        // 未登录  弹出登录弹窗
+        this.isShow = true
+        return
+      }
+      // 识别网站类型  返回对应网站编号
+      const urlType = await this.discernSiteType()
+      if (!urlType) return
+      // 找到网站类型 开始请求数据
+      // 链接正确 已经登录 可以向后台发送请求了
+      const data = {}
       const res = await this.$request({
         url: 'api/play',
-        method: 'get'
+        method: 'post',
+        data
       })
 
       console.log(res.res.url)
@@ -93,6 +100,20 @@ export default {
       // eslint-disable-next-line no-undef
       // const player = videojs('play-video', { playbackRates: [0.5, 1, 1.5, 2] })
       // player.play()
+    },
+    discernSiteType () {
+      const pendingUrl = this.videoLink
+      const reg = RegExp(/shida|huke/)
+      if (!reg.test(pendingUrl)) {
+        this.$message.error('暂不支持该网站哦~')
+        return
+      }
+      // 验证通过  开始区分网站类型
+      // eslint-disable-next-line no-unused-vars
+      let urlType = ''
+      if (pendingUrl.indexOf('shida')) urlType = 10
+      else if (pendingUrl.indexOf('huke')) urlType = 11
+      return urlType
     },
     beforeClose () {
       this.isShow = false

@@ -18,16 +18,22 @@
         <el-menu-item index="news">今日热点</el-menu-item>
         <el-menu-item index="wool">福利羊毛</el-menu-item>
         </el-menu>
-       <div class="header-userinfo" v-if="name">
+       <div @click="handleClickAvatar" class="header-userinfo" v-if="name">
            <div class="header-name">
-           <p>{{name}}</p>
+           <p>欢迎您,{{name}}</p>
          </div>
           <!-- 头像 -->
        <div class="headImg">
           <img  :src="avatar" alt="">
        </div>
+       <div v-if="isShowSetting" class="userinfo-dialog">
+         <ul class="user-setting">
+           <li>信息设置</li>
+           <li @click.stop="takeOut">退出</li>
+         </ul>
        </div>
-       <div v-else @click="login" style="cursor: pointer;">登录</div>
+       </div>
+       <div v-else @click="login" style="cursor: pointer;margin-left:10%">登录</div>
       </el-header>
       <Login @beforeClose="beforeClose" :isShow="isShow"/>
   </div>
@@ -41,7 +47,8 @@ export default {
   data () {
     return {
       activeIndex: 'index',
-      isShow: false
+      isShow: false,
+      isShowSetting: false
     }
   },
   computed: {
@@ -59,6 +66,14 @@ export default {
     },
     beforeClose (state) {
       this.isShow = state
+    },
+    handleClickAvatar () {
+      this.isShowSetting = !this.isShowSetting
+    },
+    takeOut () {
+      console.log('退出')
+      this.$store.dispatch('takeOut')
+      this.$router.go(0)
     }
   }
 }
@@ -66,7 +81,8 @@ export default {
 
 <style>
 .el-menu{
-  min-width: 64%;
+  min-width: 60%;
+  max-width: 62%;
 }
 .el-header{
   background: #fff;
@@ -80,18 +96,49 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+.userinfo-dialog ul li{
+  list-style-type: none;
+  font-size: 15px;
+  color: #71777c;
+  font-weight: 400;
+  text-align: center;
+  line-height: 30px;
+}
+.userinfo-dialog ul li:hover{
+  background: #f8f8f8;
+}
+.user-setting{
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.userinfo-dialog{
+  position: absolute;
+  /* width: 200px; */
+  height: 100px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+  top: 50px;
+  right: 10px;
+  left: 10px;
+  z-index: 10;
 }
 .header-name{
   font-size: 16px;
   margin-right: 20px;
+  font-weight: 400;
 }
 .el-header img{
   width: 120px;
   position: relative;
 }
 .headImg{
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   /* background: red; */
   border: 2px solid #eeeeee;
