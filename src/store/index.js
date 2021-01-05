@@ -6,8 +6,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    avatar: '',
-    name: ''
+    avatar: getToken('avatar') || '',
+    name: getToken('name') || ''
   },
   mutations: {
     SET_AVATAR: (state, avatar) => {

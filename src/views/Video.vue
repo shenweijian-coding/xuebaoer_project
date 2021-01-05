@@ -2,12 +2,12 @@
   <div>
     <el-row>
       <el-col :span="20">
-        <el-input style="width:98%" v-model="videoLink" placeholder="请输入视频链接"></el-input>
+        <el-input style="width:98%;" v-model="videoLink" placeholder="请输入视频链接"></el-input>
       </el-col>
       <el-col :span="2"> <el-button type="primary" @click="play">立即观看</el-button></el-col>
     </el-row>
     <el-row style="margin-top:30px">
-    <el-col :span="20">
+    <el-col :span="23">
     <video-player  class="video-player vjs-custom-skin"
       style='width: 100%;height: auto'
      ref="videoPlayer"
@@ -17,6 +17,10 @@
     ></video-player>
     </el-col>
     </el-row>
+     <div class="flex">
+        <div class="sourcefile">源文件</div>
+        <div class="sourcefile">本课素材</div>
+     </div>
     <Login @beforeClose="beforeClose" :isShow="isShow"/>
   </div>
 </template>
@@ -55,8 +59,8 @@ export default {
         sources: [
           {
             withCredentials: false,
-            type: 'application/x-mpegURL'
-            // src: ''
+            type: 'application/x-mpegURL',
+            src: ''
           }
         ]
       }
@@ -122,6 +126,21 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.sourcefile{
+  width: 100px;
+  height: 40px;
+  background:#409eff;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.flex{
+  display: flex;
+  justify-content: center;
+}
 </style>

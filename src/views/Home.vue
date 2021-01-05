@@ -11,6 +11,17 @@
       </div>
       <!-- 右面部分 -->
       <div class="main-right">
+        <!-- 帮助 -->
+        <div class="right-help"></div>
+        <!-- 广告 -->
+        <div class="right-banner"></div>
+        <!-- 联系方式 -->
+        <div class="right-contact">
+          <ul class="contact flex">
+            <li><img src="../assets/qq.svg" alt="">添加QQ</li>
+            <li><img src="../assets/vx.svg" alt="">添加微信</li>
+          </ul>
+        </div>
         <ul>
           <li><a href=""><img src="" alt=""></a></li>
         </ul>
@@ -71,7 +82,44 @@ ul li {
 .main-right{
   width: 22%;
   min-height: 300px;
+  /* background: #409eff; */
+  /* background: #ffe366;; */
+}
+.right-help{
+  width: 100%;
+  height: 100px;
   background: #fff;
-
+}
+.right-banner{
+  width: 100%;
+  height: 300px;
+  background: #fff;
+  margin-top: 14px;
+}
+.right-contact{
+    width: 100%;
+  height: 60px;
+  background: #fff;
+  margin-top: 14px;
+}
+.right-contact ul li img{
+  width: 20px;
+  margin-right: 6px;
+}
+.right-contact ul li{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.contact{
+  text-align: center;
+  padding: 20px;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 </style>

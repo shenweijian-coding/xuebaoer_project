@@ -87,6 +87,9 @@ export default {
 </script>
 
 <style scoped>
+p{
+  margin: 10px 0;
+}
 .el-dialog{
   background: #f8faff !important;
   height: 200px;

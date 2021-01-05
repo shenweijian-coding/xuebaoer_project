@@ -9,8 +9,8 @@
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
+        router=""
         background-color="#fff"
-        router
         text-color="#71777c"
         active-text-color="#007fff">
         <el-menu-item index="index">视频观看</el-menu-item>
@@ -33,7 +33,7 @@
          </ul>
        </div>
        </div>
-       <div v-else @click="login" style="cursor: pointer;margin-left:10%">登录</div>
+       <div v-else @click="login" class="login">登录</div>
       </el-header>
       <Login @beforeClose="beforeClose" :isShow="isShow"/>
   </div>
@@ -44,9 +44,16 @@ import { mapGetters } from 'vuex'
 import Login from '@/components/Login'
 export default {
   components: { Login },
+  props: {
+    activeIndex: {
+      type: String,
+      default () {
+        return 'index'
+      }
+    }
+  },
   data () {
     return {
-      activeIndex: 'index',
       isShow: false,
       isShowSetting: false
     }
@@ -56,6 +63,9 @@ export default {
       'avatar',
       'name'
     ])
+  },
+  watch: {
+
   },
   methods: {
     handleSelect (key, keyPath) {
@@ -79,7 +89,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .el-menu{
   min-width: 60%;
   max-width: 62%;
@@ -155,5 +165,22 @@ export default {
 }
 .el-menu.el-menu--horizontal{
   border: none !important;
+}
+.login{
+  cursor: pointer;
+  margin-left:10%;
+  font-weight: normal;
+  padding: 2px 14px;
+  border: 1px solid #409eff;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #409eff;
+  font-size: 16px;
+}
+.login:hover{
+  background: #409eff;
+  color: #fff;
 }
 </style>
