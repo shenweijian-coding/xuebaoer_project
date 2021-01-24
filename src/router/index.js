@@ -15,6 +15,10 @@ const routes = [
     component: Home
   },
   {
+    path: '/video',
+    component: Home
+  },
+  {
     path: '/matter',
     name: 'Matter',
     component: Matter
