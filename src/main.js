@@ -15,7 +15,9 @@ import {
   Row,
   Col,
   Message,
-  Icon
+  Icon,
+  Carousel,
+  CarouselItem
 } from 'element-ui'
 Vue.use(Menu)
 Vue.use(MenuItem)
@@ -26,6 +28,8 @@ Vue.use(Button)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Icon)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 
 Vue.config.productionTip = false
 Vue.prototype.$request = request

@@ -88,11 +88,14 @@ export default {
         return
       }
       // 识别网站类型  返回对应网站编号
-      const urlType = await this.discernSiteType()
+      const urlType = this.discernSiteType()
       if (!urlType) return
       // 找到网站类型 开始请求数据
       // 链接正确 已经登录 可以向后台发送请求了
-      const data = {}
+      const data = {
+        urlLink: url,
+        urlType: urlType
+      }
       const res = await this.$request({
         url: 'api/play',
         method: 'post',
