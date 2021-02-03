@@ -91,11 +91,15 @@ export default {
       const urlType = this.discernSiteType()
       if (!urlType) return
       // 找到网站类型 开始请求数据
+      // 获取必要的请求参数
+      const vidSource = await this.$request({ url: url })
+      const vid = vidSource.match(/Params.vid = '(\S*)';/)[0].replace(/[^0-9]/ig, '')
       // 链接正确 已经登录 可以向后台发送请求了
       const data = {
-        urlLink: url,
+        reqData: { vid },
         urlType: urlType
       }
+      // 发送请求
       const res = await this.$request({
         url: 'api/play',
         method: 'post',

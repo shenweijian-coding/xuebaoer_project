@@ -143,7 +143,9 @@ export default {
   methods: {
     // 发送请求
     async downCurTypeFile (e) {
-      this.reqData.a = e
+      if (this.urlType === 23 || this.urlType === 16) {
+        this.reqData.a = e
+      }
       // 发送请求
       const res = await this.$request({
         url: 'api/matter',
@@ -153,8 +155,9 @@ export default {
           urlType: this.urlType
         }
       })
-      if (res.res.url) {
-        window.location.href = res.res.url
+      console.log(res)
+      if (res.url) {
+        window.open(res.url)
       } else {
         this.$message('解析失败,请售后再试，或点击右方联系站长')
       }
@@ -196,7 +199,7 @@ export default {
        * }
        */
       switch (this.urlType) {
-        case 23:
+        case 23: // 觅元素
           if (linkArrData[3] === 'bg') {
             // eslint-disable-next-line no-const-assign
             this.downOptions = [{ downText: '下载jpg', downConfig: 'bdown' }, { downText: '下载psd', downConfig: 'bdownPsd' }]
@@ -207,6 +210,14 @@ export default {
           this.reqData.d = linkArrData[4].split('.')[0] // 将下载id放到请求体
           break
         case 22:
+          break
+        case 20:// 图克巴巴
+          this.downOptions = [{ downText: '下载文件', downConfig: '' }]
+          this.reqData.d = linkArrData[4].split('.')[0]
+          break
+        case 16:
+          this.downOptions = [{ downText: '推荐通道', downConfig: '6' }, { downText: '电信通道', downConfig: '2' }, { downText: '联通网通', downConfig: '5' }]
+          this.reqData.d = linkArrData[4].split('.')[0]
           break
         default:
           break
