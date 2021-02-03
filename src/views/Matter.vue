@@ -13,8 +13,14 @@
           </el-col>
           <el-col :span="2"> <el-button type="primary" @click="downMatter">下载素材</el-button></el-col>
         </el-row>
-        <el-row>
+        <!-- 下载选项区域 -->
+        <el-row v-if="downOptions">
+          <el-col :span="22" class="flex site-option">
+            <div v-for="(item,i) in downOptions" :key="i" @click="downCurTypeFile(item.downConfig)" class="option-item png">{{item.downText}}</div>
+          </el-col>
+        </el-row>
         <!-- 网站区域 -->
+        <el-row>
         <el-col :span="23">
           <div class="site-total flex">
           <div v-for="(item,i) in siteArray" :key="i" class="site-item">
@@ -54,10 +60,14 @@ export default {
   components: { NavBar, Right, Login },
   data () {
     return {
-      activeIndex: '',
-      matterLink: '',
-      isShow: false,
-      siteArray: [
+      activeIndex: '', // tab激活
+      matterLink: '', // 用户输入的素材链接
+      isShow: false, // 登录页显示
+      reqData: {}, // 发送请求的对象
+      urlType: '', // 网站的类型
+      downloadFile: '',
+      downOptions: [],
+      siteArray: [ // 要展示的网站数组
         {
           webName: '千图网(收费)',
           webUrl: 'https://www.58pic.com/',
@@ -131,6 +141,25 @@ export default {
     // console.log()
   },
   methods: {
+    // 发送请求
+    async downCurTypeFile (e) {
+      this.reqData.a = e
+      // 发送请求
+      const res = await this.$request({
+        url: 'api/matter',
+        method: 'post',
+        data: {
+          reqData: this.reqData,
+          urlType: this.urlType
+        }
+      })
+      if (res.res.url) {
+        window.location.href = res.res.url
+      } else {
+        this.$message('解析失败,请售后再试，或点击右方联系站长')
+      }
+    },
+    // 点击下载按钮
     async downMatter () {
       const url = this.matterLink
       if (!url) {
@@ -148,16 +177,42 @@ export default {
       }
       // 识别网站类型 返回编号
       const urlType = this.discernSiteType()
-      const res = await this.$request({
-        url: 'api/matter',
-        method: 'post',
-        data: {
-          urlLink: url,
-          urlType: urlType
-        }
-      })
-      console.log(res)
+      if (!urlType) return
+      this.urlType = urlType // 将网站类型进行保存
+      // 展示下载按钮的选项
+      this.getDownOption()
     },
+    // 取出下载选项按钮
+    getDownOption () {
+      const linkArrData = this.matterLink.split('/') // 先分割成数组
+      /**
+       * {
+       *  downText: 下载图片文件
+       *  downConfig: down
+       * },
+       * {
+       *  downText： 下载源文件
+       *  downConfig: downPsd
+       * }
+       */
+      switch (this.urlType) {
+        case 23:
+          if (linkArrData[3] === 'bg') {
+            // eslint-disable-next-line no-const-assign
+            this.downOptions = [{ downText: '下载jpg', downConfig: 'bdown' }, { downText: '下载psd', downConfig: 'bdownPsd' }]
+          } else if (linkArrData[3] === 'sc') {
+            // eslint-disable-next-line no-const-assign
+            this.downOptions = [{ downText: '下载png', downConfig: 'down' }, { downText: '下载psd', downConfig: 'downPsd' }]
+          }
+          this.reqData.d = linkArrData[4].split('.')[0] // 将下载id放到请求体
+          break
+        case 22:
+          break
+        default:
+          break
+      }
+    },
+    // 取出网站对应编号
     discernSiteType () {
       const pendingUrl = this.matterLink
       const reg = RegExp(/58pic|616pic|588ku|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic/)
@@ -168,18 +223,31 @@ export default {
       // 验证通过  开始区分网站类型
       // eslint-disable-next-line no-unused-vars
       let urlType = ''
-      if (pendingUrl.indexOf('58pic')) urlType = 12
-      else if (pendingUrl.indexOf('51yuansu')) urlType = 23
-      else if (pendingUrl.indexOf('588ku')) urlType = 13
-      else if (pendingUrl.indexOf('616pic')) urlType = 11
-      else if (pendingUrl.indexOf('ibaotu')) urlType = 14
-      else if (pendingUrl.indexOf('699pic')) urlType = 15
-      else if (pendingUrl.indexOf('nipic')) urlType = 16
-      else if (pendingUrl.indexOf('90sheji')) urlType = 17
-      else if (pendingUrl.indexOf('tukuppt')) urlType = 19
-      else if (pendingUrl.indexOf('16pic')) urlType = 18
-      else if (pendingUrl.indexOf('tuke')) urlType = 20
-      else if (pendingUrl.indexOf('ooopic')) urlType = 22
+      if (pendingUrl.indexOf('58pic') !== -1) {
+        urlType = 12
+      } else if (pendingUrl.indexOf('51yuansu') !== -1) {
+        urlType = 23
+      } else if (pendingUrl.indexOf('588ku') !== -1) {
+        urlType = 13
+      } else if (pendingUrl.indexOf('616pic') !== -1) {
+        urlType = 11
+      } else if (pendingUrl.indexOf('ibaotu') !== -1) {
+        urlType = 14
+      } else if (pendingUrl.indexOf('699pic') !== -1) {
+        urlType = 15
+      } else if (pendingUrl.indexOf('nipic') !== -1) {
+        urlType = 16
+      } else if (pendingUrl.indexOf('90sheji') !== -1) {
+        urlType = 17
+      } else if (pendingUrl.indexOf('tukuppt') !== -1) {
+        urlType = 19
+      } else if (pendingUrl.indexOf('16pic') !== -1) {
+        urlType = 18
+      } else if (pendingUrl.indexOf('tuke') !== -1) {
+        urlType = 20
+      } else if (pendingUrl.indexOf('ooopic') !== -1) {
+        urlType = 22
+      }
       return urlType
     },
     beforeClose () {
@@ -196,9 +264,6 @@ export default {
 }
 .flex li{
   margin: 10px;
-}
-.mian-left{
-  /* height: 60px; */
 }
 .site-total{
   margin-top: 20px;
@@ -219,18 +284,36 @@ export default {
   /* font-size: 10px; */
   display: inline;
 }
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 14px;
-    opacity: 0.75;
-    line-height: 150px;
-    margin: 0;
-  }
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 150px;
+  margin: 0;
+}
 
-  .el-carousel__item:nth-child(2n) {
-     background-color: #99a9bf;
-  }
-  .el-carousel__item:nth-child(2n+1) {
-     background-color: #d3dce6;
-  }
+.el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+}
+.el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+}
+.site-option{
+  margin-top: 20px;
+}
+.option-item{
+  width: 60px;
+  border-radius: 4px;
+  padding: 8px;
+  color: #fff;
+  margin: 0 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.png{
+  background:#3dbb2b;
+}
+.psd{
+  background: #17cedd;
+}
 </style>
