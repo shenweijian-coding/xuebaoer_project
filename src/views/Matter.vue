@@ -13,6 +13,7 @@
           </el-col>
           <el-col :span="2"> <el-button type="primary" @click="downMatter">下载素材</el-button></el-col>
         </el-row>
+        <button @click="test">测试</button>
         <!-- 下载选项区域 -->
         <el-row v-if="downOptions">
           <el-col :span="22" class="flex site-option">
@@ -141,9 +142,15 @@ export default {
     // console.log()
   },
   methods: {
+    test () {
+      this.$request({ url: this.matterLink }).then(res => {
+        console.log(res)
+      })
+    },
     // 发送请求
     async downCurTypeFile (e) {
-      if (this.urlType === 23 || this.urlType === 16) {
+      console.log(e)
+      if (this.urlType === 23 || this.urlType === 16 || this.urlType === 24) {
         this.reqData.a = e
       }
       // 发送请求
@@ -186,7 +193,7 @@ export default {
       this.getDownOption()
     },
     // 取出下载选项按钮
-    getDownOption () {
+    async getDownOption () {
       const linkArrData = this.matterLink.split('/') // 先分割成数组
       /**
        * {
@@ -219,6 +226,47 @@ export default {
           this.downOptions = [{ downText: '推荐通道', downConfig: '6' }, { downText: '电信通道', downConfig: '2' }, { downText: '联通网通', downConfig: '5' }]
           this.reqData.d = linkArrData[4].split('.')[0]
           break
+        case 17:
+          this.downOptions = [{ downText: '立即下载', downConfig: '' }]
+          this.reqData.d = linkArrData[4].split('.')[0]
+          break
+        case 19:
+          this.downOptions = [{ downText: '立即下载', downConfig: '' }]
+          this.reqData.d = linkArrData[4].split('.')[0]
+          break
+        case 14: // 包图
+          this.downOptions = [{ downText: '立即下载', downConfig: '' }]
+          this.reqData.d = linkArrData[4].split('.')[0]
+          break
+        case 15: // 摄图
+          break
+        case 24: // 觅知
+          this.reqData.d = linkArrData[4].split('.')[0]
+          if (linkArrData[3] === 'sucai') {
+            this.downOptions = [{ downText: '下载图片文件', downConfig: { a: 17, f: 'image' } }, { downText: '下载源文件', downConfig: { a: 17, f: 'source' } }]
+          } else if (linkArrData[3] === 'ppt') {
+            this.downOptions = [{ downText: '下载PPT', downConfig: { a: 9, f: '' } }]
+          } else if (linkArrData[3] === 'muban') {
+            this.downOptions = [{ downText: '下载模板', downConfig: { a: 18, f: '' } }]
+          } else if (linkArrData[3] === 'tupian') {
+            this.downOptions = [{ downText: '图片文件', downConfig: { a: 3, f: '' } }]
+          } else if (linkArrData[3] === 'fonts') {
+            return this.$message.error('暂不支持觅知字体')
+            // this.downOptions = [{ downText: '下载字体', downConfig: { a: 19, f: '' } }]
+          } else if (linkArrData[3] === 'shipin') {
+            this.downOptions = [{ downText: '视频mp4', downConfig: { a: 5, f: 2 } }, { downText: '视频源文件', downConfig: { a: 5, f: '' } }]
+          } else if (linkArrData[3] === 'wendang') {
+            this.downOptions = [{ downText: '下载文档', downConfig: { a: 10, f: '' } }]
+          } else if (linkArrData[3] === 'shouchaobao') {
+            this.downOptions = [{ downText: '下载手抄报', downConfig: { a: 8, f: '' } }]
+          } else if (linkArrData[3] === 'biaoge') {
+            this.downOptions = [{ downText: '下载excel', downConfig: { a: 11, f: '' } }]
+          } else if (linkArrData[3] === 'sound') {
+            this.downOptions = [{ downText: '下载mp3', downConfig: { a: 21, f: 1 } }, { downText: '下载wav', downConfig: { a: 21, f: '' } }]
+          } else if (linkArrData[3] === 'dianshang') {
+            this.downOptions = [{ downText: '下载文件', downConfig: { a: 22, f: '' } }]
+          }
+          break
         default:
           break
       }
@@ -226,7 +274,7 @@ export default {
     // 取出网站对应编号
     discernSiteType () {
       const pendingUrl = this.matterLink
-      const reg = RegExp(/58pic|616pic|588ku|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic/)
+      const reg = RegExp(/58pic|616pic|588ku|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic|51miz/)
       if (!reg.test(pendingUrl)) {
         this.$message.error('暂不支持该网站哦~')
         return
@@ -258,6 +306,8 @@ export default {
         urlType = 20
       } else if (pendingUrl.indexOf('ooopic') !== -1) {
         urlType = 22
+      } else if (pendingUrl.indexOf('51miz') !== -1) {
+        urlType = 24
       }
       return urlType
     },
@@ -313,7 +363,7 @@ export default {
   margin-top: 20px;
 }
 .option-item{
-  width: 60px;
+  /* width: 60px; */
   border-radius: 4px;
   padding: 8px;
   color: #fff;
