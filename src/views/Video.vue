@@ -18,8 +18,7 @@
     </el-col>
     </el-row>
      <div class="flex">
-        <div class="sourcefile">源文件</div>
-        <div class="sourcefile">本课素材</div>
+        <div v-for="(item,i) in downOptions" :key="i" class="sourcefile" @click="downVideoFile(item)">{{item.downText}}</div>
      </div>
     <Login @beforeClose="beforeClose" :isShow="isShow"/>
   </div>
@@ -42,6 +41,8 @@ export default {
     return {
       videoLink: '',
       isShow: false,
+      downOptions: [],
+      urlType: '',
       playerOptions: {
         playbackRates: [0.5, 1.0, 1.5, 2.0], // 可选的播放速度
         overNative: true,
@@ -71,6 +72,10 @@ export default {
   mounted () {
   },
   methods: {
+    downVideoFile (e) {
+      console.log(e)
+    },
+    // 点击播放按钮
     async play () {
       const url = this.videoLink
       if (!url) {
@@ -90,13 +95,14 @@ export default {
       // 识别网站类型  返回对应网站编号
       const urlType = this.discernSiteType()
       if (!urlType) return
+      this.urlType = urlType
       // 找到网站类型 开始请求数据
       // 获取必要的请求参数
-      const vidSource = await this.$request({ url: url })
-      const vid = vidSource.match(/Params.vid = '(\S*)';/)[0].replace(/[^0-9]/ig, '')
+      // const vidSource = await this.$request({ url: url })
+      // const vid = vidSource.match(/Params.vid = '(\S*)';/)[0].replace(/[^0-9]/ig, '')
       // 链接正确 已经登录 可以向后台发送请求了
       const data = {
-        reqData: { vid },
+        reqData: { urlLink: this.videoLink },
         urlType: urlType
       }
       // 发送请求
@@ -105,13 +111,23 @@ export default {
         method: 'post',
         data
       })
-
       console.log(res.res.url)
-      this.playerOptions.sources[0].src = res.res.url
-      // eslint-disable-next-line no-undef
-      // const player = videojs('play-video', { playbackRates: [0.5, 1, 1.5, 2] })
-      // player.play()
+      this.playerOptions.sources[0].src = res.res.url // 播放链接
+      // eslint-disable-next-line no-unused-expressions
+      res.res.isShowDown ? this.getDownOption(res.res) : '' // 获取后台的配置
     },
+    // 配置下载按钮
+    getDownOption (options) {
+      switch (this.urlType) {
+        case 10: // 视达网
+          this.downOptions = [{ downText: '下载素材+源文件', downConfig: options.vid }]
+          break
+        case 11: // 虎课网d
+        default:
+          break
+      }
+    },
+    // 返回网址编号
     discernSiteType () {
       const pendingUrl = this.videoLink
       const reg = RegExp(/shida|huke/)
@@ -135,8 +151,7 @@ export default {
 
 <style scoped>
 .sourcefile{
-  width: 100px;
-  height: 40px;
+  padding: 10px;
   background:#409eff;
   margin: 10px;
   display: flex;
