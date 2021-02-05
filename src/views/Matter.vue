@@ -13,7 +13,6 @@
           </el-col>
           <el-col :span="2"> <el-button type="primary" @click="downMatter">下载素材</el-button></el-col>
         </el-row>
-        <button @click="test">测试</button>
         <!-- 下载选项区域 -->
         <el-row v-if="downOptions">
           <el-col :span="22" class="flex site-option">
@@ -142,16 +141,14 @@ export default {
     // console.log()
   },
   methods: {
-    test () {
-      this.$request({ url: this.matterLink }).then(res => {
-        console.log(res)
-      })
-    },
     // 发送请求
     async downCurTypeFile (e) {
       console.log(e)
       if (this.urlType === 23 || this.urlType === 16 || this.urlType === 24) {
         this.reqData.a = e
+      }
+      if (this.urlType === 15) {
+        this.reqData = e
       }
       // 发送请求
       const res = await this.$request({
@@ -168,6 +165,20 @@ export default {
       } else {
         this.$message('解析失败,请售后再试，或点击右方联系站长')
       }
+    },
+    // 获取后台配置按钮信息
+    async getOptionBtnFromNode () {
+      const btnOptions = await this.$request({
+        url: 'api/matter',
+        method: 'POST',
+        data: {
+          urlType: this.urlType,
+          reqData: {
+            urlLink: this.matterLink
+          }
+        }
+      })
+      return btnOptions.url
     },
     // 点击下载按钮
     async downMatter () {
@@ -195,6 +206,8 @@ export default {
     // 取出下载选项按钮
     async getDownOption () {
       const linkArrData = this.matterLink.split('/') // 先分割成数组
+      let optionsType = ''
+      let p = ''
       /**
        * {
        *  downText: 下载图片文件
@@ -215,8 +228,6 @@ export default {
             this.downOptions = [{ downText: '下载png', downConfig: 'down' }, { downText: '下载psd', downConfig: 'downPsd' }]
           }
           this.reqData.d = linkArrData[4].split('.')[0] // 将下载id放到请求体
-          break
-        case 22:
           break
         case 20:// 图克巴巴
           this.downOptions = [{ downText: '下载文件', downConfig: '' }]
@@ -239,6 +250,30 @@ export default {
           this.reqData.d = linkArrData[4].split('.')[0]
           break
         case 15: // 摄图
+          optionsType = await this.getOptionBtnFromNode()
+          console.log(optionsType)
+          p = linkArrData[3].split('.')[0].split('-')[1]
+          if (optionsType === 1) {
+            this.downOptions = [{ downText: '最大尺寸', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 3 } }, { downText: 'banner配图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 4 } }, { downText: '微信配图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 2 } }]
+          } else if (optionsType === 2) {
+            this.downOptions = [{ downText: '最大尺寸', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 3 } }, { downText: 'banner配图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 4 } }, { downText: '微信配图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 2 } }, { downText: '源文件', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 1 } }]
+          } else if (optionsType === 3) {
+            this.downOptions = [{ downText: 'gif动图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 956, f: 3 } }, { downText: '源文件', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 956, f: 1 } }]
+          } else if (optionsType === 4) {
+            this.downOptions = [{ downText: '最大尺寸', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 887, f: 3 } }, { downText: 'banner配图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 887, f: 4 } }, { downText: '微信配图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 887, f: 2 } }, { downText: '源文件', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 887, f: 1 } }]
+          } else if (optionsType === 5) {
+            this.downOptions = [{ downText: '立即下载', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 23, f: '' } }]
+          } else if (optionsType === 6) {
+            this.downOptions = [{ downText: '立即下载', downConfig: { urlLink: 'newdownload/design', p, b: 0, t: 0, f: 1 } }]
+          } else if (optionsType === 7) {
+            this.downOptions = [{ downText: 'png下载', downConfig: { urlLink: 'newdownload/yuansu', p, b: 0, t: 34, f: 1 } }, { downText: '源文件下载', downConfig: { urlLink: 'newdownload/yuansu', p, b: 0, t: 34, f: 1 } }]
+          } else if (optionsType === 8) {
+            this.downOptions = [{ downText: '预览文件下载', downConfig: { urlLink: `download/video?id=${p}`, p, b: 0, t: 0, f: 6 } }, { downText: '源文件下载', downConfig: { urlLink: `download/video?id=${p}`, p, b: 0, t: 0, f: 7 } }]
+          } else if (optionsType === 9) {
+            this.downOptions = [{ downText: '音乐下载', downConfig: { urlLink: 'music/download/', p, b: 0, t: 0, f: 0 } }]
+          } else if (optionsType === 10) {
+            this.downOptions = [{ downText: '手机海报', downConfig: { urlLink: 'music/download', p, b: 0, t: 0, f: 9 } }, { downText: '公众号封面', downConfig: { urlLink: 'music/download', p, b: 0, t: 0, f: 8 } }, { downText: '手机banner', downConfig: { urlLink: 'music/download', p, b: 0, t: 0, f: 7 } }, { downText: '公众号头图', downConfig: { urlLink: 'music/download', p, b: 0, t: 0, f: 6 } }, { downText: '源文件', downConfig: { urlLink: 'music/download', p, b: 0, t: 0, f: 1 } }]
+          }
           break
         case 24: // 觅知
           this.reqData.d = linkArrData[4].split('.')[0]
@@ -266,6 +301,10 @@ export default {
           } else if (linkArrData[3] === 'dianshang') {
             this.downOptions = [{ downText: '下载文件', downConfig: { a: 22, f: '' } }]
           }
+          break
+        case 22: // 我图
+          this.downOptions = [{ downText: '下载文件', downConfig: '' }]
+          this.reqData.d = linkArrData[3].split('.')[0].split('_')[1]
           break
         default:
           break
@@ -335,6 +374,11 @@ export default {
   width: 180px;
   color: #807d7d;
   font-size: 14px;
+}
+.site-item a:hover{
+  /* color: #409eff !important; */
+  color: #000;
+  text-decoration: underline;
 }
 .site-item a{
   text-decoration: none;
