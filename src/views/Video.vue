@@ -72,8 +72,32 @@ export default {
   mounted () {
   },
   methods: {
-    downVideoFile (e) {
+    async downVideoFile (e) {
       console.log(e)
+      //       'https://shida66.com/8046.html'.split('/')[3].split('.')[0]
+      // 'https://shida66.com/8046_10244.html'.split('/')[3].split('.')[0].split('_')
+      const vid = e.downConfig
+      let sid = this.videoLink.split('/')[3].split('.')[0]
+      if (sid.includes('_')) {
+        sid = this.videoLink.split('/')[3].split('.')[0].split('_')[0]
+      }
+      const res = await this.$request({
+        url: 'api/play',
+        method: 'POST',
+        data: {
+          reqData: {
+            vid,
+            sid
+          },
+          urlType: 9
+        }
+      })
+      console.log(res)
+      if (res.res) {
+        window.open(res.res)
+      } else {
+        this.$message('解析失败,请售后再试，或点击右方联系站长')
+      }
     },
     // 点击播放按钮
     async play () {
