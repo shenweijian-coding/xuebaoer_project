@@ -9,6 +9,7 @@ var instance = axios.create({
 })
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
+  store.state.isLoading = true
   if (store.state.token) {
     // let each request carry token
     // ['X-Token'] is a custom headers key
@@ -26,6 +27,7 @@ instance.interceptors.request.use(function (config) {
 instance.interceptors.response.use(function (response) {
   const res = response.data
   if (res) {
+    store.state.isLoading = false
     return Promise.resolve(res)
   }
 }, function (error) {

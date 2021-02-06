@@ -7,7 +7,9 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     avatar: getToken('avatar') || '',
-    name: getToken('name') || ''
+    // eslint-disable-next-line node/no-deprecated-api
+    name: getToken('name') || '',
+    isLoading: false
   },
   mutations: {
     SET_AVATAR: (state, avatar) => {
@@ -18,12 +20,17 @@ const store = new Vuex.Store({
     },
     RESET: (state) => {
       state.avatar = ''
+      // eslint-disable-next-line node/no-deprecated-api
       state.name = ''
+    },
+    SET_LOADING: (state, data) => {
+      state.isLoading = data
     }
   },
   getters: {
     avatar: state => state.avatar,
-    name: state => state.name
+    name: state => state.name,
+    isLoading: state => state.isLoading
   },
   actions: {
     // 登录
@@ -41,18 +48,25 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         const avatar = getToken('avatar')
         console.log(avatar)
-        const name = getToken('name')
+        let name = getToken('name')
+        // eslint-disable-next-line node/no-deprecated-api
+        name = new Buffer(name, 'base64').toString()
+        console.log(name)
         commit('SET_AVATAR', avatar)
         commit('SET_NAME', name)
         resolve({})
       })
     },
     takeOut ({ commit }) {
+      debugger
       commit('RESET')
       removeToken('name')
       removeToken('avatar')
       removeToken('openID')
       removeToken('eventKey')
+    },
+    changeLoadingState ({ commit }, data) {
+      commit('SET_LOADING', data)
     }
   }
 })

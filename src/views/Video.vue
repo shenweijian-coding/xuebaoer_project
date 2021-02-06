@@ -8,7 +8,8 @@
     </el-row>
     <el-row style="margin-top:30px">
     <el-col :span="23">
-    <video-player  class="video-player vjs-custom-skin"
+      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/video.png" v-if="!playerOptions.sources[0].src" alt="">
+    <video-player  v-else class="video-player vjs-custom-skin"
       style='width: 100%;height: auto'
      ref="videoPlayer"
      title="QQ1834638245"
@@ -46,7 +47,7 @@ export default {
       playerOptions: {
         playbackRates: [0.5, 1.0, 1.5, 2.0], // 可选的播放速度
         overNative: true,
-        autoplay: false, // 是否自动播放
+        autoplay: true, // 是否自动播放
         controls: true,
         aspectRatio: '16:9', // 视频比例
         techOrder: ['html5'],

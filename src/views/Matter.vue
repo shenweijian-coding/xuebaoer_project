@@ -132,6 +132,21 @@ export default {
           webName: '我图网VIP',
           webUrl: 'https://www.ooopic.com/sucaixiazai/',
           isToll: false
+        },
+        {
+          webName: '待上新',
+          webUrl: '',
+          isToll: true
+        },
+        {
+          webName: '待上新',
+          webUrl: '',
+          isToll: true
+        },
+        {
+          webName: '待上新',
+          webUrl: '',
+          isToll: true
         }
       ]
     }
@@ -144,7 +159,7 @@ export default {
     // 发送请求
     async downCurTypeFile (e) {
       console.log(e)
-      if (this.urlType === 23 || this.urlType === 16 || this.urlType === 24) {
+      if (this.urlType === 23 || this.urlType === 16 || this.urlType === 24 || this.urlType === 21) {
         this.reqData.a = e
       }
       if (this.urlType === 15) {
@@ -264,7 +279,7 @@ export default {
           } else if (optionsType === 5) {
             this.downOptions = [{ downText: '立即下载', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 23, f: '' } }]
           } else if (optionsType === 6) {
-            this.downOptions = [{ downText: '立即下载', downConfig: { urlLink: 'newdownload/design', p, b: 0, t: 0, f: 1 } }]
+            this.downOptions = [{ downText: 'jpg原图', downConfig: { urlLink: 'newdownload/design', p, b: 0, t: 0, f: 5 } }, { downText: 'PSD源文件', downConfig: { urlLink: 'newdownload/design', p, b: 0, t: 0, f: 1 } }]
           } else if (optionsType === 7) {
             this.downOptions = [{ downText: 'png下载', downConfig: { urlLink: 'newdownload/yuansu', p, b: 0, t: 34, f: 1 } }, { downText: '源文件下载', downConfig: { urlLink: 'newdownload/yuansu', p, b: 0, t: 34, f: 1 } }]
           } else if (optionsType === 8) {
@@ -306,6 +321,10 @@ export default {
           this.downOptions = [{ downText: '下载文件', downConfig: '' }]
           this.reqData.d = linkArrData[3].split('.')[0].split('_')[1]
           break
+        case 21: // 图精灵 需要复制链接
+          this.downOptions = [{ downText: '图片文件', downConfig: 1 }, { downText: 'PSD文件', downConfig: 2 }]
+          this.reqData.d = linkArrData[4].split('.')[0]
+          break
         default:
           break
       }
@@ -328,7 +347,7 @@ export default {
       } else if (pendingUrl.indexOf('588ku') !== -1) {
         urlType = 13
       } else if (pendingUrl.indexOf('616pic') !== -1) {
-        urlType = 11
+        urlType = 21
       } else if (pendingUrl.indexOf('ibaotu') !== -1) {
         urlType = 14
       } else if (pendingUrl.indexOf('699pic') !== -1) {

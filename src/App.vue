@@ -1,10 +1,17 @@
 <template>
   <div id="app">
     <router-view/>
+    <Loading v-show="isLoading"/>
   </div>
 </template>
 <script>
+import Loading from './components/Loading.vue'
+import { mapState } from 'vuex'
 export default {
+  components: { Loading },
+  computed: {
+    ...mapState(['isLoading'])
+  },
   created () {
     // 在页面加载时读取localStorage里的状态信息
   //   if (sessionStorage.getItem('store')) {

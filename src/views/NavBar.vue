@@ -15,8 +15,8 @@
         active-text-color="#007fff">
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
-        <el-menu-item index="news">今日热点</el-menu-item>
-        <el-menu-item index="wool">福利羊毛</el-menu-item>
+        <el-menu-item index="news">使用教程</el-menu-item>
+        <el-menu-item index="wool">关于本站</el-menu-item>
         </el-menu>
        <div @click="handleClickAvatar" class="header-userinfo" v-if="name">
            <div class="header-name">
@@ -28,8 +28,8 @@
        </div>
        <div v-if="isShowSetting" class="userinfo-dialog">
          <ul class="user-setting">
-           <li>信息设置</li>
-           <li @click.stop="takeOut">退出</li>
+           <li> <i class="el-icon-user"></i> 个人信息</li>
+           <li @click.stop="takeOut"> <i class="el-icon-switch-button"></i> 退出登录</li>
          </ul>
        </div>
        </div>
@@ -55,17 +55,21 @@ export default {
   data () {
     return {
       isShow: false,
+      name: '',
       isShowSetting: false
     }
   },
   computed: {
     ...mapGetters([
-      'avatar',
-      'name'
+      'avatar'
     ])
   },
   watch: {
 
+  },
+  mounted () {
+    const name = this.$store.state.name
+    this.name = Buffer.from(name, 'base64').toString()
   },
   methods: {
     handleSelect (key, keyPath) {
@@ -115,15 +119,15 @@ export default {
   color: #71777c;
   font-weight: 400;
   text-align: center;
-  line-height: 30px;
+  line-height: 38px;
 }
 .userinfo-dialog ul li:hover{
-  background: #f8f8f8;
+  background: #f0f0f5;
 }
 .user-setting{
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 10px 0;
 }
 .userinfo-dialog{
   position: absolute;
