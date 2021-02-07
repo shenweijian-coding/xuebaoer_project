@@ -15,8 +15,8 @@
         active-text-color="#007fff">
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
-        <el-menu-item index="news">使用教程</el-menu-item>
-        <el-menu-item index="wool">关于本站</el-menu-item>
+        <el-menu-item index="help"><a href="https://www.bilibili.com/video/BV1HJ411v7HC" target="_blank">使用教程</a></el-menu-item>
+        <el-menu-item index="about">关于本站</el-menu-item>
         </el-menu>
        <div @click="handleClickAvatar" class="header-userinfo" v-if="name">
            <div class="header-name">
@@ -28,7 +28,7 @@
        </div>
        <div v-if="isShowSetting" class="userinfo-dialog">
          <ul class="user-setting">
-           <li> <i class="el-icon-user"></i> 个人信息</li>
+           <li @click="navMyInfo"> <i class="el-icon-user"></i> 个人信息</li>
            <li @click.stop="takeOut"> <i class="el-icon-switch-button"></i> 退出登录</li>
          </ul>
        </div>
@@ -72,6 +72,10 @@ export default {
     this.name = Buffer.from(name, 'base64').toString()
   },
   methods: {
+    // 跳转我的
+    navMyInfo () {
+      this.$router.push('/my')
+    },
     handleSelect (key, keyPath) {
       console.log(key, keyPath)
     },

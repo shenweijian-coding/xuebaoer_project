@@ -3,7 +3,7 @@
   <div class="funBtnbox flex">
     <div class="btn-con flex2" v-if="isShowQQ" @mouseenter="enterQQ" @mouseleave="leaveQQ">
       <div>QQ号:1834638245</div>
-      <div><a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=1bPHq4DhOFKvBann4a3ZG1fqBYfxqK5X&noverify=0">直接点我添加</a></div>
+      <div class="btn-qq"><a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=1bPHq4DhOFKvBann4a3ZG1fqBYfxqK5X&noverify=0">直接点我添加</a></div>
       <div>时间:9:00-22:00</div>
       <div>回复不及时,请见谅</div>
     </div>
@@ -51,6 +51,15 @@ export default {
 </script>
 
 <style scoped>
+.btn-qq{
+  background: #409eff;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+.btn-qq a{
+  color: #fff;
+}
 .btn-con{
   position: absolute;
   width: 160px;

@@ -1,6 +1,6 @@
 <template>
   <div class="load-bg">
-    <span class="loader"></span>
+    <span class="loader"><div class="loading-text">加载中</div></span>
   </div>
 </template>
 
@@ -11,6 +11,13 @@ export default {
 </script>
 
 <style scoped>
+.loading-text{
+  color: #fff;
+  position: absolute;
+  bottom: -40px;
+  right: 0;
+  left: 0;
+}
 .load-bg{
   background: rgba(0, 0, 0, .6);
   position: absolute;
@@ -24,53 +31,66 @@ export default {
   right: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: 60px;
+  height: 60px;
   display: block;
-  margin:15px auto;
+  margin: 20px auto;
   position: absolute;
+  background: radial-gradient(ellipse at center, #FFF 69%, rgba(0, 0, 0, 0) 70%), linear-gradient(to right, rgba(0, 0, 0, 0) 47%, #FFF 48%, #FFF 52%, rgba(0, 0, 0, 0) 53%);
+  background-size: 20px 20px , 20px auto;
+  background-repeat: repeat-x;
+  background-position: center bottom, center -5px;
   box-sizing: border-box;
-  animation: rotation 1s linear infinite;
   }
 /* .loader {
-  width: 48px;
-  height: 48px;
-  display: inline-block;
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin: 20px auto;
   position: relative;
+  background: radial-gradient(ellipse at center, #FFF 69%, rgba(0, 0, 0, 0) 70%), linear-gradient(to right, rgba(0, 0, 0, 0) 47%, #FFF 48%, #FFF 52%, rgba(0, 0, 0, 0) 53%);
+  background-size: 20px 20px , 20px auto;
+  background-repeat: repeat-x;
+  background-position: center bottom, center -5px;
+  box-sizing: border-box;
 } */
-.loader::after,
-.loader::before {
+.loader::before,
+.loader::after {
   content: '';
   box-sizing: border-box;
-  width: 48px;
-  height: 48px;
-  border: 2px solid red;
   position: absolute;
-  left: 0;
+  left: -20px;
   top: 0;
-  animation: rotationBreak 3s ease-in-out infinite alternate;
+  width: 20px;
+  height: 60px;
+  background: radial-gradient(ellipse at center, #FFF 69%, rgba(0, 0, 0, 0) 70%), linear-gradient(to right, rgba(0, 0, 0, 0) 47%, #FFF 48%, #FFF 52%, rgba(0, 0, 0, 0) 53%);
+  background-size: 20px 20px , 20px auto;
+  background-repeat: no-repeat;
+  background-position: center bottom, center -5px;
+  transform: rotate(0deg);
+  transform-origin: 50% 0%;
+  animation: animPend 1s linear infinite alternate;
 }
 .loader::after {
-  border-color: #409eff;
-  animation-direction: alternate-reverse;
+  animation: animPend2 1s linear infinite alternate;
+  left: 100%;
 }
 
-@keyframes rotationBreak {
+@keyframes animPend {
   0% {
-    transform: rotate(0);
-  }
-  25% {
-    transform: rotate(90deg);
+    transform: rotate(22deg);
   }
   50% {
-    transform: rotate(180deg);
+    transform: rotate(0deg);
   }
-  75% {
-    transform: rotate(270deg);
+}
+
+@keyframes animPend2 {
+  0%, 55% {
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotate(-22deg);
   }
 }
 </style>

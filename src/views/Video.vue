@@ -6,7 +6,15 @@
       </el-col>
       <el-col :span="2"> <el-button type="primary" @click="play">立即观看</el-button></el-col>
     </el-row>
-    <el-row style="margin-top:30px">
+    <el-row class="web-options">
+      <el-col :span="24">
+        <ul class="flex web-site">
+          目前支持:
+          <li v-for="(item,i) in siteArray" :key="i"><a target="_blank" :href="item.webUrl">{{item.webName}}</a></li>
+        </ul>
+      </el-col>
+    </el-row>
+    <el-row style="margin-top:10px">
     <el-col :span="23">
       <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/video.png" v-if="!playerOptions.sources[0].src" alt="">
     <video-player  v-else class="video-player vjs-custom-skin"
@@ -65,7 +73,19 @@ export default {
             src: ''
           }
         ]
-      }
+      },
+      siteArray: [
+        {
+          webName: '视达网',
+          webUrl: 'https://shida66.com/',
+          isToll: true
+        },
+        {
+          webName: '虎课网',
+          webUrl: 'https://huke88.com/',
+          isToll: true
+        }
+      ]
     }
   },
   created () {
@@ -175,6 +195,15 @@ export default {
 </script>
 
 <style scoped>
+.web-options{
+  margin-top: 10px;
+}
+.web-site{
+  font-size: 14px;
+}
+.web-site li{
+  margin: 0 6px;
+}
 .sourcefile{
   padding: 10px;
   background:#409eff;

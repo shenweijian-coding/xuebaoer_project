@@ -47,6 +47,7 @@
       </div>
     </div>
     <Login @beforeClose="beforeClose" :isShow="isShow"/>
+    <Usebtn />
   </div>
 </template>
 
@@ -56,8 +57,9 @@ import Right from '@/components/Right'
 import { isURL } from '../utils/helper'
 import { getToken } from '../utils/auth'
 import Login from '../components/Login.vue'
+import Usebtn from '@/components/Usebtn'
 export default {
-  components: { NavBar, Right, Login },
+  components: { NavBar, Right, Login, Usebtn },
   data () {
     return {
       activeIndex: '', // tab激活
@@ -206,6 +208,10 @@ export default {
         this.$message.error('请输入正确的素材链接')
         return
       }
+      if (url.includes('down')) {
+        this.$message.error('请复制该素材主页面链接,不要点击下载按钮')
+        return
+      }
       if (!getToken('openID')) {
         // 未登录  弹出登录弹窗
         this.isShow = true
@@ -332,6 +338,7 @@ export default {
     // 取出网站对应编号
     discernSiteType () {
       const pendingUrl = this.matterLink
+      console.log(pendingUrl)
       const reg = RegExp(/58pic|616pic|588ku|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic|51miz/)
       if (!reg.test(pendingUrl)) {
         this.$message.error('暂不支持该网站哦~')
@@ -385,7 +392,7 @@ export default {
   margin: 10px;
 }
 .site-total{
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .site-item{
   border: 1px solid #eef3f7;
@@ -423,7 +430,7 @@ export default {
     background-color: #d3dce6;
 }
 .site-option{
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .option-item{
   /* width: 60px; */

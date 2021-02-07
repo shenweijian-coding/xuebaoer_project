@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './style/iconfont.css'
 import request from './utils/request'
 import store from './store'
+import './style/resert.css'
 import {
   Menu,
   MenuItem,

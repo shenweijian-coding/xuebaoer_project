@@ -56,7 +56,7 @@ export default {
 .mian-left{
   width: 72%;
   min-height: 300px;
-  background: #fff;
+  background: #ffffff;
   padding: 30px;
   overflow: hidden;
 }

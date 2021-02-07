@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Matter from '../views/Matter'
+import My from '@/views/My'
+import Help from '@/views/Help'
+import About from '@/views/About'
 Vue.use(VueRouter)
 
 const routes = [
@@ -22,6 +25,21 @@ const routes = [
     path: '/matter',
     name: 'Matter',
     component: Matter
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: Help
+  },
+  {
+    path: '/my',
+    name: 'my',
+    component: My
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: About
   }
 ]
 
