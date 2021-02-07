@@ -15,7 +15,7 @@
         active-text-color="#007fff">
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
-        <el-menu-item index="help"><a href="https://www.bilibili.com/video/BV1HJ411v7HC" target="_blank">使用教程</a></el-menu-item>
+        <el-menu-item index="help">使用教程</el-menu-item>
         <el-menu-item index="about">关于本站</el-menu-item>
         </el-menu>
        <div @click="handleClickAvatar" class="header-userinfo" v-if="name">

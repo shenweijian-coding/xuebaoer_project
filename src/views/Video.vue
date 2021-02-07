@@ -1,22 +1,11 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="20">
-        <el-input style="width:98%;" v-model="videoLink" placeholder="请输入视频链接"></el-input>
-      </el-col>
-      <el-col :span="2"> <el-button type="primary" @click="play">立即观看</el-button></el-col>
-    </el-row>
-    <el-row class="web-options">
-      <el-col :span="24">
-        <ul class="flex web-site">
-          目前支持:
-          <li v-for="(item,i) in siteArray" :key="i"><a target="_blank" :href="item.webUrl">{{item.webName}}</a></li>
-        </ul>
-      </el-col>
-    </el-row>
-    <el-row style="margin-top:10px">
     <el-col :span="23">
-      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/video.png" v-if="!playerOptions.sources[0].src" alt="">
+      <!-- <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/video.png" v-if="!playerOptions.sources[0].src" alt=""> -->
+      <div v-if="!playerOptions.sources[0].src" class="no-video flex">
+        <div class="video-tip">提示：视达网可直接免費观看，虎课网请提前安装播放插件。</div>
+      </div>
     <video-player  v-else class="video-player vjs-custom-skin"
       style='width: 100%;height: auto'
      ref="videoPlayer"
@@ -29,6 +18,20 @@
      <div class="flex">
         <div v-for="(item,i) in downOptions" :key="i" class="sourcefile" @click="downVideoFile(item)">{{item.downText}}</div>
      </div>
+         <el-row class="web-options">
+      <el-col :span="24">
+        <ul class="flex web-site">
+          目前支持:
+          <li v-for="(item,i) in siteArray" :key="i"><a target="_blank" :href="item.webUrl">{{item.webName}}</a></li>
+        </ul>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="20">
+        <el-input style="width:98%;" v-model="videoLink" placeholder="请输入视频链接"></el-input>
+      </el-col>
+      <el-col :span="2"> <el-button type="primary" @click="play">立即观看</el-button></el-col>
+    </el-row>
     <Login @beforeClose="beforeClose" :isShow="isShow"/>
   </div>
 </template>
@@ -95,8 +98,6 @@ export default {
   methods: {
     async downVideoFile (e) {
       console.log(e)
-      //       'https://shida66.com/8046.html'.split('/')[3].split('.')[0]
-      // 'https://shida66.com/8046_10244.html'.split('/')[3].split('.')[0].split('_')
       const vid = e.downConfig
       let sid = this.videoLink.split('/')[3].split('.')[0]
       if (sid.includes('_')) {
@@ -156,10 +157,15 @@ export default {
         method: 'post',
         data
       })
-      console.log(res.res.url)
-      this.playerOptions.sources[0].src = res.res.url // 播放链接
-      // eslint-disable-next-line no-unused-expressions
-      res.res.isShowDown ? this.getDownOption(res.res) : '' // 获取后台的配置
+      console.log(res)
+      // 如果是视达
+      if (this.urlType === 10) {
+        this.playerOptions.sources[0].src = res.res.url // 播放链接
+        // eslint-disable-next-line no-unused-expressions
+        res.res.isShowDown ? this.getDownOption(res.res) : '' // 获取后台的配置
+      } else if (this.urlType === 11) { // 如果是虎课网
+        window.open(res.res)
+      }
     },
     // 配置下载按钮
     getDownOption (options) {
@@ -183,8 +189,8 @@ export default {
       // 验证通过  开始区分网站类型
       // eslint-disable-next-line no-unused-vars
       let urlType = ''
-      if (pendingUrl.indexOf('shida')) urlType = 10
-      else if (pendingUrl.indexOf('huke')) urlType = 11
+      if (pendingUrl.includes('shida')) urlType = 10
+      else if (pendingUrl.includes('huke')) urlType = 11
       return urlType
     },
     beforeClose () {
@@ -214,6 +220,15 @@ export default {
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
+}
+.no-video{
+  width: 100%;
+  height: 500px;
+  background: #000;
+}
+.video-tip{
+  color: #fff;
+  font-size: 16px;
 }
 .flex{
   display: flex;

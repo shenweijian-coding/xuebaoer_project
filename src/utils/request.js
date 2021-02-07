@@ -25,9 +25,9 @@ instance.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {
+  store.state.isLoading = false
   const res = response.data
   if (res) {
-    store.state.isLoading = false
     return Promise.resolve(res)
   }
 }, function (error) {

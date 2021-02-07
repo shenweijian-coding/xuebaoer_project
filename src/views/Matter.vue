@@ -167,6 +167,9 @@ export default {
       if (this.urlType === 15) {
         this.reqData = e
       }
+      if (this.urlType === 12) {
+        this.reqData = { urlLink: this.matterLink }
+      }
       // 发送请求
       const res = await this.$request({
         url: 'api/matter',
@@ -249,6 +252,9 @@ export default {
             this.downOptions = [{ downText: '下载png', downConfig: 'down' }, { downText: '下载psd', downConfig: 'downPsd' }]
           }
           this.reqData.d = linkArrData[4].split('.')[0] // 将下载id放到请求体
+          break
+        case 12: // 千图
+          this.downOptions = [{ downText: '立即下载', downConfig: '' }]
           break
         case 20:// 图克巴巴
           this.downOptions = [{ downText: '下载文件', downConfig: '' }]
