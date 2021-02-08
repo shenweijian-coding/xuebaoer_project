@@ -5,6 +5,7 @@ import Matter from '../views/Matter'
 import My from '@/views/My'
 import Help from '@/views/Help'
 import About from '@/views/About'
+import Invite from '@/views/Invite'
 Vue.use(VueRouter)
 
 const routes = [
@@ -40,6 +41,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: About
+  },
+  {
+    path: '/invite',
+    name: 'invite',
+    component: Invite
   }
 ]
 

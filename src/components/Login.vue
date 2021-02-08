@@ -49,8 +49,10 @@ export default {
       this.$emit('beforeClose', false)
       clearTimeout(window.QRCodeTimer)
     },
+    // 处理登录
     async handleLogin () {
       console.log('我打开了')
+      console.log(this.$route.query)
       const res = await this.$store.dispatch('login')
       const { id, expiresIn, imgSrc } = res
       this.wxUrl = 'data:image/png;base64,' + imgSrc
@@ -59,9 +61,18 @@ export default {
       await this.waitToSubscribe(id, expiresIn)
       console.log('扫码成功, 开始从cookie获取头像昵称')
       this.$store.dispatch('getUserInfo')
+      // 邀请人数统计
+      const { code } = this.$route.query
+      if (code) {
+        this.invitePeople(code)
+      }
       this.beforeClose()
       this.$router.go(0)
       console.log('用户扫码进去成功')
+    },
+    // 邀请送人数
+    invitePeople (code) {
+      console.log('我执行了', code)
     },
     // 循环请求  检测扫码
     async waitToSubscribe (id, timeout) {

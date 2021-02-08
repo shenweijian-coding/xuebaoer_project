@@ -16,6 +16,7 @@
       </div>
     </div>
     <Usebtn />
+    <Notice />
   </div>
 </template>
 
@@ -24,9 +25,10 @@ import Video from './Video.vue'
 import NavBar from '@/views/NavBar'
 import Right from '@/components/Right'
 import Usebtn from '../components/Usebtn.vue'
+import Notice from '@/components/Notice'
 export default {
   // eslint-disable-next-line vue/no-unused-components
-  components: { Video, NavBar, Right, Usebtn },
+  components: { Video, NavBar, Right, Usebtn, Notice },
   data () {
     return {}
   },

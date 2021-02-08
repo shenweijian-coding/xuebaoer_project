@@ -18,7 +18,11 @@ import {
   Message,
   Icon,
   Carousel,
-  CarouselItem
+  CarouselItem,
+  Collapse,
+  CollapseItem,
+  Tabs,
+  TabPane
 } from 'element-ui'
 Vue.use(Menu)
 Vue.use(MenuItem)
@@ -31,6 +35,10 @@ Vue.use(Col)
 Vue.use(Icon)
 Vue.use(Carousel)
 Vue.use(CarouselItem)
+Vue.use(Collapse)
+Vue.use(CollapseItem)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.config.productionTip = false
 Vue.prototype.$request = request
 Vue.prototype.$message = Message

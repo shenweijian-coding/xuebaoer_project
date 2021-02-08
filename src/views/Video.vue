@@ -92,10 +92,23 @@ export default {
     }
   },
   created () {
+    this.invitePeople()
   },
   mounted () {
   },
   methods: {
+    // 邀请人数
+    invitePeople () {
+      const { code } = this.$route.query
+      if (!code) {
+        return 0
+      }
+      // 登录成功 发送请求
+      this.$request({
+      }).then(res => {
+
+      })
+    },
     async downVideoFile (e) {
       console.log(e)
       const vid = e.downConfig

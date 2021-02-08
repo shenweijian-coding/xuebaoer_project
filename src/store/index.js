@@ -9,7 +9,8 @@ const store = new Vuex.Store({
     avatar: getToken('avatar') || '',
     // eslint-disable-next-line node/no-deprecated-api
     name: getToken('name') || '',
-    isLoading: false
+    isLoading: false,
+    isShowNotice: true
   },
   mutations: {
     SET_AVATAR: (state, avatar) => {
@@ -17,6 +18,9 @@ const store = new Vuex.Store({
     },
     SET_NAME: (state, name) => {
       state.name = name
+    },
+    SET_NOTICE: (state, isShow) => {
+      state.isShowNotice = isShow
     },
     RESET: (state) => {
       state.avatar = ''
