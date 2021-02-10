@@ -11,7 +11,7 @@
           <el-col :span="20">
             <el-input style="width:98%;" v-model="matterLink" placeholder="请输入素材链接"></el-input>
           </el-col>
-          <el-col :span="2"> <el-button type="primary" @click="downMatter">下载素材</el-button></el-col>
+          <el-col :span="2"> <el-button class="matter-btn" type="primary" @click="downMatter" :disabled="matterText!='下载素材'">{{matterText}}</el-button></el-col>
         </el-row>
         <!-- 下载选项区域 -->
         <el-row v-if="downOptions">
@@ -32,9 +32,11 @@
         <!-- banner区域 -->
         <el-row style="margin-top:20px">
           <el-col :span="23">
-            <el-carousel height="150px" :interval="5000">
-              <el-carousel-item v-for="item in 2" :key="item">
-                <h3>{{ item }}</h3>
+            <el-carousel height="260px" :interval="5000">
+              <el-carousel-item v-for="(item, i) in bannerList" :key="i">
+                <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=1bPHq4DhOFKvBann4a3ZG1fqBYfxqK5X&noverify=0">
+                  <img :src="item.imgUrl" alt="联系QQ1834638245">
+                </a>
               </el-carousel-item>
               </el-carousel>
           </el-col>
@@ -65,10 +67,14 @@ export default {
       activeIndex: '', // tab激活
       matterLink: '', // 用户输入的素材链接
       isShow: false, // 登录页显示
+      matterText: '下载素材',
       reqData: {}, // 发送请求的对象
       urlType: '', // 网站的类型
       downloadFile: '',
       downOptions: [],
+      bannerList: [{
+        imgUrl: 'https://yuanxiaoshen.com/wp-content/uploads/2021/02/banner1.jpg'
+      }],
       siteArray: [ // 要展示的网站数组
         {
           webName: '千图网(收费)',
@@ -171,16 +177,28 @@ export default {
         this.reqData = { urlLink: this.matterLink }
       }
       // 发送请求
-      const res = await this.$request({
-        url: 'api/matter',
-        method: 'post',
-        data: {
-          reqData: this.reqData,
-          urlType: this.urlType
-        }
-      })
+      let res = ''
+      if (this.urlType === 16) {
+        res = await this.$request({
+          url: 'api/nitu',
+          method: 'post',
+          data: {
+            ...this.reqData
+          }
+        })
+      } else {
+        res = await this.$request({
+          url: 'api/matter',
+          method: 'post',
+          data: {
+            reqData: this.reqData,
+            urlType: this.urlType
+          }
+        })
+      }
       console.log(res)
       if (res.url) {
+        this.handleIsDisabled()
         window.open(res.url)
       } else {
         this.$message('解析失败,请售后再试，或点击右方联系站长')
@@ -384,6 +402,19 @@ export default {
     },
     beforeClose () {
       this.isShow = false
+    },
+    // 播放按钮禁用
+    handleIsDisabled () {
+      let time = 100
+      const playTimmer = setInterval(() => {
+        console.log(this.matterText)
+        this.matterText = time + 's'
+        time--
+        if (time < 0) {
+          this.matterText = '立即观看'
+          clearInterval(playTimmer)
+        }
+      }, 1000)
     }
   }
 }
@@ -411,6 +442,9 @@ export default {
   /* color: #409eff !important; */
   color: #000;
   text-decoration: underline;
+}
+.matter-btn{
+  width: 100px;
 }
 .site-item a{
   text-decoration: none;

@@ -29,6 +29,9 @@ const store = new Vuex.Store({
     },
     SET_LOADING: (state, data) => {
       state.isLoading = data
+    },
+    SET_TIME: (state, disabledTime) => {
+      state.disabledTime = disabledTime
     }
   },
   getters: {
