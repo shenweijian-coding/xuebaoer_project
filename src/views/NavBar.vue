@@ -15,6 +15,7 @@
         active-text-color="#007fff">
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
+        <el-menu-item index="pay">获取赞助版</el-menu-item>
         <el-menu-item index="invite">邀请比赛</el-menu-item>
         <el-menu-item index="help">使用教程</el-menu-item>
         <!-- <el-menu-item index="about">关于本站</el-menu-item> -->

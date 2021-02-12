@@ -10,15 +10,16 @@
       <div class="header">扫描登录</div>
       <div class="login-con">
         <div class="login login-left">
-          <div class="title">温馨提示</div>
-          <p>1.本站服务均为免费</p>
-          <p>2.微信扫描右方二维码,关注公众号即可自动登录</p>
-          <p>3.本站正常运行需要精力与成本,您可自愿捐赠或分享给您的同事,谢谢支持！</p>
-          <p>4.汲取大家意见,右上方有投稿功能,可提交新功能给站长</p>
+          <div class="title">加入学宝儿你可以获得:</div>
+          <p>1.视达网免费观看+素材下载功能(登录即可获得)</p>
+          <p>2.虎课网观看+视频素材下载功能</p>
+          <p>3.支持20+素材网站源文件极速下载</p>
+          <p>4.不定时优惠福利发放</p>
+          <p>5.设计社群交流，结识设计同行好友</p>
           <!-- <img src="" alt="温馨提示"> -->
         </div>
         <div class="login login-right">
-          <div class="title">微信扫码登录</div>
+          <div class="title">微信扫码关注自动登录</div>
           <img id="wx-img" :src=wxUrl alt="微信二维码【日常学习宝】">
           <p>Tips:二维码有效期为 3分钟</p>
         </div>

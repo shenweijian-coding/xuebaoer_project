@@ -13,6 +13,8 @@
           </el-col>
           <el-col :span="2"> <el-button class="matter-btn" type="primary" @click="downMatter" :disabled="matterText!='下载素材'">{{matterText}}</el-button></el-col>
         </el-row>
+        <!-- <iframe src="https://api.xiuxiu888.com/codepay.html?id=633479&token=iQpf9WtQeQuc3iekAKIE17YqBQ2qN6zY" width="100%" height="100%" frameborder="no" border="0" scrolling="no" allowtransparency="yes"></iframe> -->
+
         <!-- 下载选项区域 -->
         <el-row v-if="downOptions">
           <el-col :span="22" class="flex site-option">

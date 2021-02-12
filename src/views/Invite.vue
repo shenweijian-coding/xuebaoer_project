@@ -62,8 +62,7 @@ export default {
 
 <style scoped>
 .top-mine-info{
-  width: 64%;
-  /* height: 140px; */
+  width: 67%;
   background: #fff;
   margin: 14px auto;
   padding: 30px 100px;

@@ -6,6 +6,7 @@ import My from '@/views/My'
 import Help from '@/views/Help'
 import About from '@/views/About'
 import Invite from '@/views/Invite'
+import Pay from '@/views/Pay'
 Vue.use(VueRouter)
 
 const routes = [
@@ -46,6 +47,11 @@ const routes = [
     path: '/invite',
     name: 'invite',
     component: Invite
+  },
+  {
+    path: '/pay',
+    name: 'pay',
+    component: Pay
   }
 ]
 

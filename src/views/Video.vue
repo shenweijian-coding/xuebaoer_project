@@ -199,6 +199,7 @@ export default {
       console.log(res)
       // 如果是视达
       if (this.urlType === 10) {
+        if (res.code !== 1005) return this.$message.info(res.msg)
         this.handleIsDisabled()
         this.playerOptions.sources[0].src = res.res.url // 播放链接
         // eslint-disable-next-line no-unused-expressions
@@ -207,6 +208,7 @@ export default {
         // 获取后台的配置
         // eslint-disable-next-line no-unused-expressions
         // res.res.isShowDown ? this.getDownOption(res.res) : ''
+        if (res.code !== 1005) return this.$message.info(res.msg)
         this.getDownOption(res.res)
         this.handleIsDisabled()
         window.open(res.res.videoUrl)

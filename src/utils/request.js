@@ -1,7 +1,6 @@
 import { getToken } from '../utils/auth'
 import store from '../store/index'
 const axios = require('axios')
-
 var instance = axios.create({
   baseURL: 'http://localhost:3000',
   timeout: 60000,
