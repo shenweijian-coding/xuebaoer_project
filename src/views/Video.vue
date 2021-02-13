@@ -3,16 +3,20 @@
     <el-row>
     <el-col :span="23">
       <!-- <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/video.png" v-if="!playerOptions.sources[0].src" alt=""> -->
-      <div v-if="!playerOptions.sources[0].src" class="no-video flex">
-        <div class="video-tip">提示：视达网可直接免費观看，虎课网请提前安装播放插件。</div>
+      <div v-if="!playerOptions.sources[0].src && !hukeVideoUrl" class="no-video flex">
+        <div class="video-tip">提示：视达网可直接免费观看，虎课网请提前安装播放插件。</div>
       </div>
-    <video-player  v-else class="video-player vjs-custom-skin"
-      style='width: 100%;height: auto'
-     ref="videoPlayer"
-     title="QQ1834638245"
-     :playsinline="true"
-     :options="playerOptions"
-    ></video-player>
+      <div v-else>
+      <video-player class="video-player vjs-custom-skin"
+        style='width: 100%;height: auto'
+        v-if="playerOptions.sources[0].src"
+        ref="videoPlayer"
+        title="QQ1834638245"
+        :playsinline="true"
+        :options="playerOptions"
+      ></video-player>
+     <iframe height="480px" v-if="hukeVideoUrl" width="100%" :src="hukeVideoUrl" frameborder="0"></iframe>
+      </div>
     </el-col>
     </el-row>
      <div class="flex">
@@ -57,6 +61,7 @@ export default {
       urlType: '',
       playText: '立即观看',
       playDisabled: false, // 播放是否禁用
+      hukeVideoUrl: '', // 虎课播放链接
       playerOptions: {
         playbackRates: [0.5, 1.0, 1.5, 2.0], // 可选的播放速度
         overNative: true,
@@ -81,13 +86,18 @@ export default {
       },
       siteArray: [
         {
-          webName: '视达网',
+          webName: '视达网(免费)',
           webUrl: 'https://shida66.com/',
           isToll: true
         },
         {
-          webName: '虎课网',
+          webName: '虎课网(赞助)',
           webUrl: 'https://huke88.com/',
+          isToll: true
+        },
+        {
+          webName: '待上新',
+          webUrl: '#',
           isToll: true
         }
       ]
@@ -211,7 +221,7 @@ export default {
         if (res.code !== 1005) return this.$message.info(res.msg)
         this.getDownOption(res.res)
         this.handleIsDisabled()
-        window.open(res.res.videoUrl)
+        this.hukeVideoUrl = 'chrome-extension://ckblfoghkjhaclegefojbgllenffajdc/player.html#' + res.res.videoUrl
       } else {
         this.$message.error('解析失败,多次错误,请联系管理员处理~')
       }

@@ -5,7 +5,7 @@
   :visible.sync="isShowNotice"
   width="30%"
   center>
-  <span>需要注意的是内容是默认不居中的</span>
+  <span>{{dialogInfo}}</span>
   <span slot="footer" class="dialog-footer">
     <!-- <el-button type="" @click="noShowNotice">不在弹出</el-button> -->
     <el-button type="primary" @click="clickIsShowNotice">朕已知悉</el-button>
@@ -18,6 +18,7 @@
 export default {
   data () {
     return {
+      dialogInfo: ''
     }
   },
   computed: {
@@ -30,7 +31,16 @@ export default {
       }
     }
   },
+  created () {
+    this.getHomeInfo()
+  },
   methods: {
+    // 获取首页相关信息
+    async getHomeInfo () {
+      const res = await this.$request({ url: 'api/info' })
+      this.dialogInfo = res.info
+      console.log(res)
+    },
     // 关闭弹窗
     clickIsShowNotice () {
       this.$store.commit('SET_NOTICE', false)

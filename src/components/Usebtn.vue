@@ -8,7 +8,7 @@
       <div>回复不及时,请见谅</div>
     </div>
     <div class="btn-con" v-if="isShowVX" @mouseenter="enterQQ" @mouseleave="leaveQQ">
-      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/gh_b312dc891086_258.jpg" alt="">
+      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/3d15f53890547124286133f982e0f9c.jpg" alt="">
     </div>
     <div class="btn-item flex2" @mouseenter="enterQQ" @mouseleave="leaveQQ">
       <img src="../assets/qq.svg" alt="联系QQ">

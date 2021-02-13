@@ -7,7 +7,7 @@
       <div class="title">·赞助版(赞助后获得)·</div>
       <div>本站所有视频网站+素材网站下载服务(昵图网除外,昵图需要单独充值昵图分)</div>
       <div class="title">·我要赞助·</div>
-      <div>您的专属赞助码,付款后,即可获得赞助版权限,有问题随时联系右下方。</div>
+      <div class="pay-text">您的专属赞助码,付款后,即可获得赞助版权限(全网下载),有问题点击右下方联系即可。</div>
       <!-- 付款 -->
       <iframe height="700px" width="100%" :src="payUrl" frameborder="0"></iframe>
     </div>
@@ -46,5 +46,9 @@ export default {
 .title{
   line-height: 50px;
   font-weight: bold;
+}
+.pay-text{
+  color: red;
+  font-size: 18px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 导航 -->
-    <NavBar />
+    <NavBar :activeIndex="activeIndex"/>
     <div class="main">
           <!-- 主体布局 -->
       <div class="main-con">
@@ -30,7 +30,9 @@ export default {
   // eslint-disable-next-line vue/no-unused-components
   components: { Video, NavBar, Right, Usebtn, Notice },
   data () {
-    return {}
+    return {
+      activeIndex: 'index'
+    }
   },
   methods: {
 

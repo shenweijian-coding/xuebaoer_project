@@ -13,12 +13,17 @@
           </el-col>
           <el-col :span="2"> <el-button class="matter-btn" type="primary" @click="downMatter" :disabled="matterText!='下载素材'">{{matterText}}</el-button></el-col>
         </el-row>
-        <!-- <iframe src="https://api.xiuxiu888.com/codepay.html?id=633479&token=iQpf9WtQeQuc3iekAKIE17YqBQ2qN6zY" width="100%" height="100%" frameborder="no" border="0" scrolling="no" allowtransparency="yes"></iframe> -->
-
         <!-- 下载选项区域 -->
-        <el-row v-if="downOptions">
+        <el-row v-if="downOptions && !copyDownUrl">
           <el-col :span="22" class="flex site-option">
             <div v-for="(item,i) in downOptions" :key="i" @click="downCurTypeFile(item.downConfig)" class="option-item png">{{item.downText}}</div>
+          </el-col>
+        </el-row>
+        <!-- 网址复制区域 -->
+        <el-row v-if="copyDownUrl">
+          <el-col :span="22">
+            <div>复制下方链接到浏览器打开即可</div>
+            <div>{{copyDownUrl}}</div>
           </el-col>
         </el-row>
         <!-- 网站区域 -->
@@ -73,43 +78,44 @@ export default {
       reqData: {}, // 发送请求的对象
       urlType: '', // 网站的类型
       downloadFile: '',
+      copyDownUrl: '', // 熊猫办公
       downOptions: [],
       bannerList: [{
         imgUrl: 'https://yuanxiaoshen.com/wp-content/uploads/2021/02/banner1.jpg'
       }],
       siteArray: [ // 要展示的网站数组
         {
-          webName: '千图网(收费)',
+          webName: '千图网',
           webUrl: 'https://www.58pic.com/',
           isToll: true
         },
         {
-          webName: '千库网(收费)',
+          webName: '千库网',
           webUrl: 'https://588ku.com/',
           isToll: true
         },
         {
-          webName: '包图网(收费)',
+          webName: '包图网',
           webUrl: 'https://ibaotu.com/',
           isToll: true
         },
         {
-          webName: '摄图网(收费)',
+          webName: '摄图网',
           webUrl: 'https://699pic.com/',
           isToll: true
         },
         {
-          webName: '昵图网(收费)',
+          webName: '昵图网',
           webUrl: 'http://www.nipic.com/',
           isToll: true
         },
         {
-          webName: '90设计(收费)',
+          webName: '90设计',
           webUrl: 'http://90sheji.com/',
           isToll: true
         },
         {
-          webName: '熊猫办公(收费)',
+          webName: '熊猫办公',
           webUrl: 'https://www.tukuppt.com/',
           isToll: true
         },
@@ -199,11 +205,15 @@ export default {
         })
       }
       console.log(res)
-      if (res.url) {
+      if (JSON.stringify(res.url) !== '{}') {
         this.handleIsDisabled()
+        if (this.urlType === 19 || this.urlType === 20) {
+          this.copyDownUrl = res.url
+          return
+        }
         window.open(res.url)
       } else {
-        this.$message('解析失败,请售后再试，或点击右方联系站长')
+        this.$message({ message: '解析失败,请售后再试，或点击右方联系站长', type: 'warning' })
       }
     },
     // 获取后台配置按钮信息
@@ -222,6 +232,7 @@ export default {
     },
     // 点击下载按钮
     async downMatter () {
+      this.copyDownUrl = ''
       const url = this.matterLink
       if (!url) {
         this.$message.error('请输入素材链接哦~')
@@ -413,7 +424,7 @@ export default {
         this.matterText = time + 's'
         time--
         if (time < 0) {
-          this.matterText = '立即观看'
+          this.matterText = '下载素材'
           clearInterval(playTimmer)
         }
       }, 1000)

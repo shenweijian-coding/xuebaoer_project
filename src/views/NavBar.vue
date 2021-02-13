@@ -2,17 +2,17 @@
   <div>
      <el-header height="60px">
        <!-- logo -->
-       <a href="#"><img src="../assets/logo.png" alt="摄图网"></a>
+       <a href="#"><img src="../assets/logo.png" alt=""></a>
        <!-- 菜单 -->
         <el-menu
         :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
-        router=""
+        router
         background-color="#fff"
         text-color="#71777c"
-        active-text-color="#007fff">
+        active-text-color="">
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
         <el-menu-item index="pay">获取赞助版</el-menu-item>

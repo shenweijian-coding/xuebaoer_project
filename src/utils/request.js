@@ -3,9 +3,10 @@ import store from '../store/index'
 const axios = require('axios')
 var instance = axios.create({
   baseURL: 'http://localhost:3000',
-  timeout: 60000,
+  timeout: 6000,
   withCredentials: true
 })
+instance.defaults.timeout = 6000
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
   store.state.isLoading = true
@@ -30,6 +31,7 @@ instance.interceptors.response.use(function (response) {
     return Promise.resolve(res)
   }
 }, function (error) {
+  store.state.isLoading = false
   // 对响应错误做点什么
   return Promise.reject(error)
 })
