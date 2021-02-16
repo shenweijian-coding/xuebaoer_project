@@ -1,30 +1,63 @@
 <template>
   <div>
-  <!-- 联系方式 -->
-  <div class="right-contact">
-    <!-- <ul class="contact flex"> -->
-       <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxerweima.png" alt="微信公众二维码">
-      <!-- <li><img src="../assets/qq.svg" alt="">添加QQ</li>
-      <li><img src="../assets/vx.svg" alt="">添加微信</li>
-    </ul> -->
-  </div>
-    <!-- 帮助 -->
-  <!-- <div class="right-help"></div> -->
-  <!-- 广告 -->
+    <!-- 个人信息 -->
+    <!-- <div class="right-userinfo">
+      <div class="info flex2">
+        <div class="label">版本：</div>
+        <div class="value">{{yourVersions}}</div>
+      </div>
+      <div class="info flex2">
+        <div class="label">邮箱：</div>
+        <div class="value">{{yourEmail}}</div>
+      </div>
+      <div class="info flex2">
+        <div class="label">关注时间：</div>
+        <div class="value">{{attentionTime}}</div>
+      </div>
+      <div class="info flex2">
+        <div class="label">登录IP：</div>
+        <div class="value">{{loginIp}}</div>
+      </div>
+    </div> -->
+    <!-- 联系方式 -->
+    <div class="right-contact">
+      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxerweima.png" alt="微信公众二维码">
+    </div>
+    <!-- 二维码 -->
     <div class="right-banner">
-       <div class="banner-title">微信公众号(欢迎关注)</div>
-    <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/qrcode_for_gh_7f31b0892ccf_258.jpg" alt="">
-  </div>
-  <div class="right-banner">
-    <div class="banner-title">小程序观看(支持PC+手机)</div>
-    <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/gh_b312dc891086_258.jpg" alt="微信公众二维码">
-  </div>
+      <div class="banner-title">小程序(支持PC+手机)观看</div>
+      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxxiaochengxu.jpg" alt="微信小程序二维码">
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  data () {
+    return {
+      loginIp: '',
+      wordDay: '',
+      yourEmail: '1834638245@qq.com',
+      attentionTime: '2021-02-14',
+      yourVersions: '普通版'
+    }
+  },
+  created () {
+    // this.getWordDay()
+  },
+  mounted () {
+    this.getUserIp()
+  },
+  methods: {
+    getUserIp () {
+      // eslint-disable-next-line no-undef
+      this.loginIp = returnCitySN.cip
+    }
+    // async getWordDay () {
+    //   const res = await this.$request({ url: 'https://api.btstu.cn/yan/api.php?charset=utf-8&encode=json' })
+    //   this.wordDay = res.text
+    // }
+  }
 }
 </script>
 
@@ -38,11 +71,16 @@ ul li {
 img{
   width: 100%;
 }
+.right-userinfo{
+  height: 120px;
+  background: #fff;
+  margin-bottom: 10px;
+  padding: 14px;
+}
 .right-banner{
-  /* width: 100%; */
   height: 260px;
   background: #fff;
-  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 8px;
   overflow: hidden;
 }
@@ -51,9 +89,10 @@ img{
 }
 .right-contact{
   width: 100%;
-  height: 88px;
+  height: 86px;
   background: #fff;
-  /* margin-top: 14px; */
+  margin-bottom: 10px;
+  border-radius: 2px;
 }
 .right-help{
   width: 100%;
@@ -82,5 +121,19 @@ img{
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+}
+.flex2{
+  display: flex;
+}
+.label{
+  font-size: 14px;
+  color: #8b93a7;
+}
+.value{
+  white-space: nowrap;
+  word-break: keep-all;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

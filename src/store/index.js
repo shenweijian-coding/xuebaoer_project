@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     avatar: getToken('avatar') || '',
     // eslint-disable-next-line node/no-deprecated-api
     name: getToken('name') || '',
+    openId: getToken('openID') || '',
     isLoading: false,
     isShowNotice: true
   },
@@ -32,6 +33,9 @@ const store = new Vuex.Store({
     },
     SET_TIME: (state, disabledTime) => {
       state.disabledTime = disabledTime
+    },
+    SET_OPENID: (state, data) => {
+      state.openId = data
     }
   },
   getters: {
@@ -51,17 +55,21 @@ const store = new Vuex.Store({
       })
     },
     getUserInfo ({ commit }) {
-      console.log('开始设置state')
       return new Promise((resolve, reject) => {
         const avatar = getToken('avatar')
-        console.log(avatar)
         let name = getToken('name')
+        const openId = getToken('openID')
         // eslint-disable-next-line node/no-deprecated-api
         name = new Buffer(name, 'base64').toString()
-        console.log(name)
         commit('SET_AVATAR', avatar)
         commit('SET_NAME', name)
+        commit('SET_OPENID', openId)
         resolve({})
+      })
+    },
+    getInfo ({ commit }) {
+      return new Promise((resolve, reject) => {
+
       })
     },
     takeOut ({ commit }) {

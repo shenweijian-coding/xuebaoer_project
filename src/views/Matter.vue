@@ -110,6 +110,11 @@ export default {
           isToll: true
         },
         {
+          webName: '觅知网',
+          webUrl: 'https://www.51miz.com/',
+          isToll: true
+        },
+        {
           webName: '90设计',
           webUrl: 'http://90sheji.com/',
           isToll: true
@@ -117,6 +122,11 @@ export default {
         {
           webName: '熊猫办公',
           webUrl: 'https://www.tukuppt.com/',
+          isToll: true
+        },
+        {
+          webName: '众图网',
+          webUrl: 'https://www.ztupic.com/',
           isToll: true
         },
         {
@@ -148,16 +158,6 @@ export default {
           webName: '我图网VIP',
           webUrl: 'https://www.ooopic.com/sucaixiazai/',
           isToll: false
-        },
-        {
-          webName: '待上新',
-          webUrl: '',
-          isToll: true
-        },
-        {
-          webName: '待上新',
-          webUrl: '',
-          isToll: true
         },
         {
           webName: '待上新',
@@ -368,6 +368,10 @@ export default {
           this.downOptions = [{ downText: '图片文件', downConfig: 1 }, { downText: 'PSD文件', downConfig: 2 }]
           this.reqData.d = linkArrData[4].split('.')[0]
           break
+        case 25: // 众图
+          this.downOptions = [{ downText: '下载文件', downConfig: '' }]
+          this.reqData.d = linkArrData[4].split('.')[0]
+          break
         default:
           break
       }
@@ -376,7 +380,7 @@ export default {
     discernSiteType () {
       const pendingUrl = this.matterLink
       console.log(pendingUrl)
-      const reg = RegExp(/58pic|616pic|588ku|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic|51miz/)
+      const reg = RegExp(/58pic|616pic|588ku|ztupic|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic|51miz/)
       if (!reg.test(pendingUrl)) {
         this.$message.error('暂不支持该网站哦~')
         return
@@ -410,6 +414,8 @@ export default {
         urlType = 22
       } else if (pendingUrl.indexOf('51miz') !== -1) {
         urlType = 24
+      } else if (pendingUrl.indexOf('ztupic') !== -1) {
+        urlType = 25
       }
       return urlType
     },
@@ -420,7 +426,6 @@ export default {
     handleIsDisabled () {
       let time = 100
       const playTimmer = setInterval(() => {
-        console.log(this.matterText)
         this.matterText = time + 's'
         time--
         if (time < 0) {

@@ -5,7 +5,7 @@
       <div>QQ号:1834638245</div>
       <div class="btn-qq"><a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=1bPHq4DhOFKvBann4a3ZG1fqBYfxqK5X&noverify=0">直接点我添加</a></div>
       <div>时间:9:00-22:00</div>
-      <div>回复不及时,请见谅</div>
+      <div>若回复不及时,请见谅</div>
     </div>
     <div class="btn-con" v-if="isShowVX" @mouseenter="enterQQ" @mouseleave="leaveQQ">
       <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/3d15f53890547124286133f982e0f9c.jpg" alt="">
