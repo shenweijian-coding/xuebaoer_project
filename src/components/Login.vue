@@ -28,7 +28,7 @@
             </div>
             <div class="flex" style="width:100%">
               <div class="flex" @click="getQR"><div>没有账号?</div><div class="get-id">立即获取</div></div>
-              <div class="find-pwd">忘记账号或密码?</div>
+              <div class="find-pwd" @click="clickForgetPwd">忘记账号或密码?</div>
           </div>
           </div>
           <div v-if="!isShowLogin">
@@ -91,6 +91,10 @@ export default {
     },
     goLogin () {
       this.isShowLogin = true
+    },
+    // 忘记密码
+    clickForgetPwd () {
+      this.$message({ message: '请先联系右下方,后期开发' })
     },
     // 处理登录
     // async handleLogin () {

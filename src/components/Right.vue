@@ -31,7 +31,7 @@
     <!-- 推销广告 -->
     <div class="right-banner">
       <!-- <div class="banner-title"></div> -->
-      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxxiaochengxu.jpg" alt="微信小程序二维码">
+      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/qrcode_for_gh_7f31b0892ccf_258.jpg" alt="微信小程序二维码">
     </div>
   </div>
 </template>
