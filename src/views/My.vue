@@ -11,7 +11,7 @@
     <el-row>
       <el-col :span="24">
       <div>你的邮箱</div>
-      <el-input placeholder="请输入您的邮箱,接收活动通知" v-model="email" style="width:40%"></el-input>
+      <el-input placeholder="请输入您的邮箱" v-model="email" style="width:40%"></el-input>
       <el-button type="primary" @click="saveEmail" style="margin-left:10px;">保存</el-button>
     </el-col>
     </el-row>
@@ -44,7 +44,7 @@
         <el-table-column
           prop="scope"
           label="操作">
-          <el-button type="primary" size="mini">赞助</el-button>
+          <el-button type="primary" @click="toPay" size="mini">赞助</el-button>
         </el-table-column>
         </template>
       </el-table>
@@ -108,8 +108,8 @@ export default {
       })
       this.email = info.email
       this.memberType = info.memberType === 1 ? '赞助版' : '免费版'
-      this.memberMatterTime = info.dueTime
-      this.memberVideoTime = info.videoTime
+      this.memberMatterTime = info.dueTime === '2021-01-01' ? '未赞助' : info.dueTime
+      this.memberVideoTime = info.videoTime === '2021-01-01' ? '未赞助' : info.videoTime
       this.matterWeb = [
         {
           webName: '千图网',

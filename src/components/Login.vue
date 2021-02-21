@@ -24,7 +24,7 @@
             <el-input v-model="userInfo.userName" placeholder="请输入账号"></el-input>
             <el-input v-model="userInfo.userPwd" type="password" placeholder="请输入密码"></el-input>
             <div class="btn-login flex">
-              <el-button type="primary" style="width:100%" @click="handleLogin">立即登录CrlTeJ0o</el-button>
+              <el-button type="primary" style="width:100%" @click="handleLogin">立即登录</el-button>
             </div>
             <div class="flex" style="width:100%">
               <div class="flex" @click="getQR"><div>没有账号?</div><div class="get-id">立即获取</div></div>
@@ -52,6 +52,8 @@ export default {
     }
   },
   created () {
+    this.userInfo.userName = localStorage.getItem('u')
+    this.userInfo.userPwd = localStorage.getItem('p')
   },
   data () {
     return {
@@ -66,10 +68,14 @@ export default {
   methods: {
     // 登录请求
     async handleLogin () {
+      if (this.userInfo.userPwd.trim() === '' || this.userInfo.userPwd.trim() === '') return this.$message({ message: '账号密码不能为空' })
       const res = await this.$store.dispatch('login', this.userInfo)
       if (res.msg === '登录成功') {
         this.$store.dispatch('getUserInfo')
         this.$message({ message: res.msg, type: 'success' })
+        // 密码通过 存入local
+        localStorage.setItem('u', this.userInfo.userName)
+        localStorage.setItem('p', this.userInfo.userPwd)
         this.$router.go(0)
       } else {
         this.$message({ message: res.msg })

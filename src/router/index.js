@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { getToken } from '../utils/auth'
 const Home = () => import('../views/Home.vue')
 const Matter = () => import('../views/Matter')
 const My = () => import('@/views/My')
@@ -59,5 +60,10 @@ const router = new VueRouter({
   // mode: 'history',
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  if (to.path === '/my' && !getToken('userId')) {
+    return next('/')
+  }
+  next()
+})
 export default router

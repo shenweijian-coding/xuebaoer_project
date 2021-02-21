@@ -61,7 +61,6 @@ const store = new Vuex.Store({
       })
     },
     takeOut ({ commit }) {
-      debugger
       commit('RESET')
       removeToken('userName')
       removeToken('userId')
