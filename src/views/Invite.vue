@@ -6,7 +6,7 @@
       <!-- <div class="invite-tiitle">复制下方文字分享到设计QQ群，QQ空间、微信群、朋友圈、微博、贴吧、等社交平台，通过您的链接每成功注册1人，您即可获得10天VIP，被邀请者也可获得3天VIP。1天内成功邀请注册≥25人，您即可获取终身VIP奖励。</div> -->
       <!-- 表格区域 -->
       <div>
-        <table class="table-title">
+        <!-- <table class="table-title">
           <thead>
             <tr>
               <td>类别</td>
@@ -18,22 +18,22 @@
         <table>
           <thead>
             <tr>
-              <td>图标</td>
+              <td>1</td>
               <td>普通版(登录获得)</td>
               <td>0</td>
             </tr>
             <tr>
-              <td>图标</td>
+              <td>2</td>
               <td>白金赞助版</td>
               <td>18</td>
             </tr>
             <tr>
-              <td>图标</td>
+              <td>3</td>
               <td>黄金赞助版</td>
               <td>44</td>
             </tr>
           </thead>
-        </table>
+        </table> -->
       </div>
     <div class="bottom-mine-url">
         <div class="invite-mine-url">学宝儿素材解析免费送素材下载虎课网观看{{inviteCode}}登录就能下载素材观看视达虎课，不用钱！</div>

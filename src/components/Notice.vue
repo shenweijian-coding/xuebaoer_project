@@ -27,7 +27,6 @@ export default {
         return this.$store.state.isShowNotice
       },
       set (newVal) {
-        // console.log(newVal)
       }
     }
   },
@@ -39,7 +38,6 @@ export default {
     async getHomeInfo () {
       const res = await this.$request({ url: 'api/info' })
       this.dialogInfo = res.info
-      console.log(res)
     },
     // 关闭弹窗
     clickIsShowNotice () {

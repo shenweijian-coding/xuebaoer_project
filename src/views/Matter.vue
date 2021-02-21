@@ -169,12 +169,10 @@ export default {
   },
   created () {
     this.activeIndex = this.$route.path.replace('/', '')
-    // console.log()
   },
   methods: {
     // 发送请求
     async downCurTypeFile (e) {
-      console.log(e)
       if (this.urlType === 23 || this.urlType === 16 || this.urlType === 24 || this.urlType === 21) {
         this.reqData.a = e
       }
@@ -204,11 +202,17 @@ export default {
           }
         })
       }
-      console.log(res)
       if (JSON.stringify(res.url) !== '{}') {
-        this.handleIsDisabled()
+        // this.handleIsDisabled()
         if (this.urlType === 19 || this.urlType === 20) {
           this.copyDownUrl = res.url
+          return
+        }
+        if (res.code !== 1005) {
+          this.$message({
+            message: res.msg,
+            type: 'warning'
+          })
           return
         }
         window.open(res.url)
@@ -309,7 +313,6 @@ export default {
           break
         case 15: // 摄图
           optionsType = await this.getOptionBtnFromNode()
-          console.log(optionsType)
           p = linkArrData[3].split('.')[0].split('-')[1]
           if (optionsType === 1) {
             this.downOptions = [{ downText: '最大尺寸', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 3 } }, { downText: 'banner配图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 4 } }, { downText: '微信配图', downConfig: { urlLink: 'download/getDownloadUrl', p, b: 0, t: 0, f: 2 } }]
@@ -379,7 +382,6 @@ export default {
     // 取出网站对应编号
     discernSiteType () {
       const pendingUrl = this.matterLink
-      console.log(pendingUrl)
       const reg = RegExp(/58pic|616pic|588ku|ztupic|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic|51miz/)
       if (!reg.test(pendingUrl)) {
         this.$message.error('暂不支持该网站哦~')

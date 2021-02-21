@@ -3,8 +3,6 @@ import Cookies from 'js-cookie'
 const Token = 'openID'
 
 export function getToken (key) {
-  console.log(key)
-  console.log(Cookies.get(key))
   return Cookies.get(key)
 }
 

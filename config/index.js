@@ -1,13 +1,9 @@
-// module.exports = {
-//   dev: {
-//     proxyTable: {
-//       '/video': {
-//         target: 'https://m3u8.huke88.com/',
-//         changeOrigin: true,
-//         pathRewrite: {
-//           '^/video': '/video'
-//         }
-//       }
-//     }
-//   }
-// }
+const path = require('path')
+module.exports = {
+  build: {
+    index: path.resolve(__dirname, '../dist/index.html'),
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsSubDirectory: 'static',
+    assetsPublicPath: './'
+  }
+}

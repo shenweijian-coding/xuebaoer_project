@@ -28,6 +28,11 @@
       <div class="banner-title">小程序(支持PC+手机)观看</div>
       <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxxiaochengxu.jpg" alt="微信小程序二维码">
     </div>
+    <!-- 推销广告 -->
+    <div class="right-banner">
+      <!-- <div class="banner-title"></div> -->
+      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxxiaochengxu.jpg" alt="微信小程序二维码">
+    </div>
   </div>
 </template>
 
@@ -78,20 +83,17 @@ img{
   padding: 14px;
 }
 .right-banner{
-  height: 260px;
   background: #fff;
-  margin-bottom: 10px;
-  padding: 8px;
-  overflow: hidden;
+  margin-top: 10px;
+  padding: 14px;
 }
 .right-banner img{
   width: 100%;
 }
 .right-contact{
   width: 100%;
-  height: 86px;
   background: #fff;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   border-radius: 2px;
 }
 .right-help{

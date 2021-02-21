@@ -11,7 +11,7 @@ const store = new Vuex.Store({
     name: getToken('name') || '',
     openId: getToken('openID') || '',
     isLoading: false,
-    isShowNotice: true
+    isShowNotice: false
   },
   mutations: {
     SET_AVATAR: (state, avatar) => {
@@ -46,10 +46,8 @@ const store = new Vuex.Store({
   actions: {
     // 登录
     login () {
-      console.log('login调用了')
       return new Promise((resolve, reject) => {
         login().then(res => {
-          console.log(res)
           resolve(res)
         })
       })
@@ -60,7 +58,7 @@ const store = new Vuex.Store({
         let name = getToken('name')
         const openId = getToken('openID')
         // eslint-disable-next-line node/no-deprecated-api
-        name = new Buffer(name, 'base64').toString()
+        name = Buffer.from(name, 'base64').toString()
         commit('SET_AVATAR', avatar)
         commit('SET_NAME', name)
         commit('SET_OPENID', openId)

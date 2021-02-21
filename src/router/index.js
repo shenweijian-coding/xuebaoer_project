@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Matter from '../views/Matter'
-import My from '@/views/My'
-import Help from '@/views/Help'
-import About from '@/views/About'
-import Invite from '@/views/Invite'
-import Pay from '@/views/Pay'
+const Home = () => import('../views/Home.vue')
+const Matter = () => import('../views/Matter')
+const My = () => import('@/views/My')
+const Help = () => import('@/views/Help')
+const About = () => import('@/views/About')
+const Invite = () => import('@/views/Invite')
+const Pay = () => import('@/views/Pay')
 Vue.use(VueRouter)
 
 const routes = [
@@ -56,7 +56,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes
 })
 

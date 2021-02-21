@@ -16,7 +16,7 @@
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
         <el-menu-item index="pay">获取赞助版</el-menu-item>
-        <el-menu-item index="invite">邀请比赛</el-menu-item>
+        <!-- <el-menu-item index="invite">邀请比赛</el-menu-item> -->
         <el-menu-item index="help">使用教程</el-menu-item>
         <!-- <el-menu-item index="about">关于本站</el-menu-item> -->
         </el-menu>
@@ -79,7 +79,6 @@ export default {
       this.$router.push('/my')
     },
     handleSelect (key, keyPath) {
-      console.log(key, keyPath)
     },
     login () {
       this.isShow = !this.isShow
@@ -91,7 +90,6 @@ export default {
       this.isShowSetting = !this.isShowSetting
     },
     takeOut () {
-      console.log('退出')
       this.$store.dispatch('takeOut')
       this.$router.go(0)
     }

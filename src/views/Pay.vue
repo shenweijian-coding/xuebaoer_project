@@ -8,6 +8,8 @@
       <div>1.赞助完成后,对应权限即可自动生效。👍</div>
       <div>2.自助赞助目前仅支持支付宝赞助,如需其他通道请联系右下方。👍</div>
       <div>3.自行选择赞助套餐,有任何问题随时联系右下方,随时解决。👍</div>
+      <div>4.关注公众号,每周不定时发送免费发放赞助会员。👍</div>
+      <div>5.本站没有永久赞助,如同世间没有永久的事物,因此没有跑路一说,用多久赞助多久即可。👍</div>
       <!-- 付款 -->
       <div class="pay-con">
           <el-table
@@ -91,7 +93,7 @@ export default {
         {
           payType: '赞助三',
           payWeb: '千图、包图、摄图、千库、90设计、熊猫办公、觅元素、觅知网、众图网等',
-          payPrice: '14',
+          payPrice: '12',
           payTimeOrNum: '30天'
         },
         {
@@ -115,7 +117,6 @@ export default {
   methods: {
     // 支付弹窗
     handlePay (e) {
-      console.log(e)
       const { payPrice } = e
       this.payUrl = `https://api.xiuxiu888.com/creat_order/?id=633479&token=iQpf9WtQeQuc3iekAKIE17YqBQ2qN6zY&price=${payPrice}&pay_id=${getToken('openID')}&type=1&page=1&debug=1&act=0`
       this.payDialogIsShow = true

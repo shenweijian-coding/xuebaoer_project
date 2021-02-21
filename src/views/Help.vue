@@ -17,8 +17,8 @@
           <el-collapse-item title="虎课网使用教程(观看虎课必读)" name="2">
             <h3>windows用户</h3>
             <div>将播放插件安装到自己的浏览器即可</div>
-            <div><a href="https://wwe.lanzous.com/iqoVxllwh9a" target="_blank">crx文件(点我下载)</a></div>
-            <div><a href="" target="_blank">zip文件(点我下载)</a></div>
+            <div><a href="https://wwe.lanzous.com/iO63Alrztwj" target="_blank">crx文件(点我下载)</a></div>
+            <div><a href="https://wwe.lanzous.com/i7vktlrzttg" target="_blank">zip文件(点我下载)</a></div>
             <h3>Mac用户</h3>
             <div>Mac用户无需安装任何插件,使用自带的Safari浏览器即可自动播放。</div>
           </el-collapse-item>

@@ -69,7 +69,7 @@ export default {
         controls: true,
         aspectRatio: '16:9', // 视频比例
         techOrder: ['html5'],
-        poster: 'http://qmc5b9ctq.hb-bkt.clouddn.com/video.png', // 你的封面地址
+        poster: '', // 你的封面地址
         notSupportedMessage: '请复制播放链接至上方输入框', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
         sourceOrder: true,
         flash: {
@@ -124,7 +124,6 @@ export default {
     // 下载素材文件
     async downVideoFile (e) {
       if (this.urlType === 10) {
-        console.log(e)
         const vid = e.downConfig
         let sid = this.videoLink.split('/')[3].split('.')[0]
         if (sid.includes('_')) {
@@ -141,7 +140,6 @@ export default {
             urlType: 9
           }
         })
-        console.log(res)
         if (res.res) {
           window.open(res.res)
         } else {
@@ -161,7 +159,6 @@ export default {
             urlType: 8
           }
         })
-        console.log(res)
         if (res.res) {
           window.open(res.res)
         } else {
@@ -181,7 +178,6 @@ export default {
         this.$message.error('请输入正确的播放链接')
         return
       }
-      console.log(getToken())
       if (!getToken('openID')) {
         // 未登录  弹出登录弹窗
         this.isShow = true
@@ -206,11 +202,12 @@ export default {
         method: 'post',
         data
       })
-      console.log(res)
       // 如果是视达
       if (this.urlType === 10) {
         if (res.code !== 1005) return this.$message.info(res.msg)
-        this.handleIsDisabled()
+        const type = res.res.url.indexOf('m3u8') !== -1 ? 'application/x-mpegURL' : ''
+        this.playerOptions.sources[0].type = type
+        // this.handleIsDisabled()
         this.playerOptions.sources[0].src = res.res.url // 播放链接
         // eslint-disable-next-line no-unused-expressions
         res.res.isShowDown ? this.getDownOption(res.res) : '' // 获取后台的配置
@@ -220,8 +217,8 @@ export default {
         // res.res.isShowDown ? this.getDownOption(res.res) : ''
         if (res.code !== 1005) return this.$message.info(res.msg)
         this.getDownOption(res.res)
-        this.handleIsDisabled()
-        this.hukeVideoUrl = 'chrome-extension://ckblfoghkjhaclegefojbgllenffajdc/player.html#' + res.res.videoUrl
+        // this.handleIsDisabled()
+        this.hukeVideoUrl = 'chrome-extension://fmiemdpcncaapleljkbkkcljdaihmnbc/player.html#' + res.res.videoUrl
       } else {
         this.$message.error('解析失败,多次错误,请联系管理员处理~')
       }
@@ -260,7 +257,6 @@ export default {
     handleIsDisabled () {
       let time = 100
       const playTimmer = setInterval(() => {
-        console.log(this.playText)
         this.playText = time + 's'
         time--
         if (time < 0) {

@@ -17,7 +17,6 @@ export default {
   created () {
     // 在页面加载时读取localStorage里的状态信息
   //   if (sessionStorage.getItem('store')) {
-  //     console.log(this.$store.state)
   //     this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem('store'))))
   //     sessionStorage.removeItem('store')
   //   }
@@ -44,7 +43,7 @@ export default {
   color: #2c3e50;
   background: #282828;
   padding: 0;
-  min-height: 96vh;
+  height: 100vh;
 }
   /* 滚动条的整体样式 */
   ::-webkit-scrollbar{
