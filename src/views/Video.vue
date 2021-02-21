@@ -178,7 +178,7 @@ export default {
         this.$message.error('请输入正确的播放链接')
         return
       }
-      if (!getToken('openID')) {
+      if (!getToken('userId')) {
         // 未登录  弹出登录弹窗
         this.isShow = true
         return

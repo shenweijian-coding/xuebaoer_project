@@ -24,10 +24,6 @@
            <div class="header-name">
            <p>欢迎您,{{name}}</p>
          </div>
-          <!-- 头像 -->
-       <div class="headImg">
-          <img  :src="avatar" alt="">
-       </div>
        <div v-if="isShowSetting" class="userinfo-dialog">
          <ul class="user-setting">
            <li @click="navMyInfo"> <i class="el-icon-user"></i> 个人信息</li>
@@ -42,7 +38,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Login from '@/components/Login'
 export default {
   components: { Login },
@@ -62,16 +57,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'avatar'
-    ])
   },
   watch: {
 
   },
   mounted () {
-    const name = this.$store.state.name
-    this.name = Buffer.from(name, 'base64').toString()
+    this.name = this.$store.state.name
+    // this.name = Buffer.from(name, 'base64').toString()
   },
   methods: {
     // 跳转我的
@@ -99,7 +91,7 @@ export default {
 
 <style scoped>
 .el-menu{
-  min-width: 60%;
+  min-width: 61%;
   max-width: 62%;
 }
 .el-header{

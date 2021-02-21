@@ -118,7 +118,9 @@ export default {
     // 支付弹窗
     handlePay (e) {
       const { payPrice } = e
-      this.payUrl = `https://api.xiuxiu888.com/creat_order/?id=633479&token=iQpf9WtQeQuc3iekAKIE17YqBQ2qN6zY&price=${payPrice}&pay_id=${getToken('openID')}&type=1&page=1&debug=1&act=0`
+      const userId = getToken('userId')
+      if (!userId) return this.$message({ message: '请先登录' })
+      this.payUrl = `https://api.xiuxiu888.com/creat_order/?id=633479&token=iQpf9WtQeQuc3iekAKIE17YqBQ2qN6zY&price=${payPrice}&pay_id=${userId}&type=1&page=1&debug=1&act=0`
       this.payDialogIsShow = true
     },
     payDialogBeforeClose () {

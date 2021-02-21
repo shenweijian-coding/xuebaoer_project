@@ -1,12 +1,18 @@
 import request from '@/utils/request'
 
-export function login () {
+// export function login () {
+//   return request({
+//     url: 'wechat/qrcode?type=2',
+//     method: 'get'
+//   })
+// }
+export function login (data) {
   return request({
-    url: 'wechat/qrcode?type=2',
-    method: 'get'
+    url: 'api/login',
+    method: 'POST',
+    data
   })
 }
-
 function waitToSubscribe () {
   return request({
     url: '',

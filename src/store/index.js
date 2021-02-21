@@ -6,17 +6,13 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    avatar: getToken('avatar') || '',
     // eslint-disable-next-line node/no-deprecated-api
-    name: getToken('name') || '',
-    openId: getToken('openID') || '',
+    name: getToken('userName') || '',
+    openId: getToken('userId') || '',
     isLoading: false,
     isShowNotice: false
   },
   mutations: {
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
-    },
     SET_NAME: (state, name) => {
       state.name = name
     },
@@ -24,8 +20,7 @@ const store = new Vuex.Store({
       state.isShowNotice = isShow
     },
     RESET: (state) => {
-      state.avatar = ''
-      // eslint-disable-next-line node/no-deprecated-api
+      state.userName = ''
       state.name = ''
     },
     SET_LOADING: (state, data) => {
@@ -34,34 +29,29 @@ const store = new Vuex.Store({
     SET_TIME: (state, disabledTime) => {
       state.disabledTime = disabledTime
     },
-    SET_OPENID: (state, data) => {
-      state.openId = data
+    SET_USERID: (state, data) => {
+      state.userId = data
     }
   },
   getters: {
-    avatar: state => state.avatar,
     name: state => state.name,
     isLoading: state => state.isLoading
   },
   actions: {
     // 登录
-    login () {
+    login ({ commit }, data) {
       return new Promise((resolve, reject) => {
-        login().then(res => {
+        login(data).then(res => {
           resolve(res)
         })
       })
     },
     getUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {
-        const avatar = getToken('avatar')
-        let name = getToken('name')
-        const openId = getToken('openID')
-        // eslint-disable-next-line node/no-deprecated-api
-        name = Buffer.from(name, 'base64').toString()
-        commit('SET_AVATAR', avatar)
+        const name = getToken('userName')
+        const userId = getToken('userId')
         commit('SET_NAME', name)
-        commit('SET_OPENID', openId)
+        commit('SET_USERID', userId)
         resolve({})
       })
     },
@@ -73,10 +63,8 @@ const store = new Vuex.Store({
     takeOut ({ commit }) {
       debugger
       commit('RESET')
-      removeToken('name')
-      removeToken('avatar')
-      removeToken('openID')
-      removeToken('eventKey')
+      removeToken('userName')
+      removeToken('userId')
     },
     changeLoadingState ({ commit }, data) {
       commit('SET_LOADING', data)

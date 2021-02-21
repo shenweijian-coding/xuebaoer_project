@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-dialog
-    @open="handleLogin"
       title=""
       :visible.sync="isShow"
       width="44%"
@@ -22,10 +21,10 @@
         <div class="login login-right">
           <div class="title">学宝儿素材网</div>
           <div v-if="isShowLogin">
-            <el-input v-model="userId" placeholder="请输入账号"></el-input>
-            <el-input v-model="userPwd" placeholder="请输入密码"></el-input>
+            <el-input v-model="userInfo.userName" placeholder="请输入账号"></el-input>
+            <el-input v-model="userInfo.userPwd" type="password" placeholder="请输入密码"></el-input>
             <div class="btn-login flex">
-              <el-button type="primary" style="width:100%">立即登录</el-button>
+              <el-button type="primary" style="width:100%" @click="handleLogin">立即登录CrlTeJ0o</el-button>
             </div>
             <div class="flex" style="width:100%">
               <div class="flex" @click="getQR"><div>没有账号?</div><div class="get-id">立即获取</div></div>
@@ -58,11 +57,25 @@ export default {
     return {
       wxUrl: '',
       isShowLogin: true,
-      userId: '',
-      userPwd: ''
+      userInfo: {
+        userName: '',
+        userPwd: ''
+      }
     }
   },
   methods: {
+    // 登录请求
+    async handleLogin () {
+      const res = await this.$store.dispatch('login', this.userInfo)
+      if (res.msg === '登录成功') {
+        this.$store.dispatch('getUserInfo')
+        this.$message({ message: res.msg, type: 'success' })
+        this.$router.go(0)
+      } else {
+        this.$message({ message: res.msg })
+      }
+      console.log(res)
+    },
     beforeClose () {
       this.$emit('beforeClose', false)
       // clearTimeout(window.QRCodeTimer)
@@ -74,23 +87,23 @@ export default {
       this.isShowLogin = true
     },
     // 处理登录
-    async handleLogin () {
-      const res = await this.$store.dispatch('login')
-      console.log(res)
-      // const { id, expiresIn, imgSrc } = res
-      // this.wxUrl = 'data:image/png;base64,' + imgSrc
-      // 调用循环  检测用户扫码
-      // await this.waitToSubscribe(id, expiresIn)
-      // this.$store.dispatch('getUserInfo')
-      // 邀请人数统计
-      // const { code } = this.$route.query
-      // if (code) {
-      //   this.invitePeople(code)
-      // }
-      // this.beforeClose()
-      // debugger
-      // this.$router.go(0)
-    },
+    // async handleLogin () {
+    //   const res = await this.$store.dispatch('login')
+    //   console.log(res)
+    // const { id, expiresIn, imgSrc } = res
+    // this.wxUrl = 'data:image/png;base64,' + imgSrc
+    // 调用循环  检测用户扫码
+    // await this.waitToSubscribe(id, expiresIn)
+    // this.$store.dispatch('getUserInfo')
+    // 邀请人数统计
+    // const { code } = this.$route.query
+    // if (code) {
+    //   this.invitePeople(code)
+    // }
+    // this.beforeClose()
+    // debugger
+    // this.$router.go(0)
+    // },
     // 邀请送人数
     invitePeople (code) {
     },

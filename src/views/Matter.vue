@@ -20,7 +20,7 @@
           </el-col>
         </el-row>
         <!-- 网址复制区域 -->
-        <el-row v-if="copyDownUrl">
+        <el-row v-if="copyDownUrl" style="line-height:40px">
           <el-col :span="22">
             <div>复制下方链接到浏览器打开即可</div>
             <div>{{copyDownUrl}}</div>
@@ -250,7 +250,7 @@ export default {
         this.$message.error('请复制该素材主页面链接,不要点击下载按钮')
         return
       }
-      if (!getToken('openID')) {
+      if (!getToken('userId')) {
         // 未登录  弹出登录弹窗
         this.isShow = true
         return
