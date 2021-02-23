@@ -5,7 +5,6 @@ const Home = () => import('../views/Home.vue')
 const Matter = () => import('../views/Matter')
 const My = () => import('@/views/My')
 const Help = () => import('@/views/Help')
-const About = () => import('@/views/About')
 const Invite = () => import('@/views/Invite')
 const Pay = () => import('@/views/Pay')
 Vue.use(VueRouter)
@@ -40,11 +39,6 @@ const routes = [
     component: My
   },
   {
-    path: '/about',
-    name: 'about',
-    component: About
-  },
-  {
     path: '/invite',
     name: 'invite',
     component: Invite
@@ -57,7 +51,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   routes
 })
 router.beforeEach((to, from, next) => {

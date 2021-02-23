@@ -6,12 +6,6 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   productionSourceMap: false,
-  externals: {
-    vue: 'Vue',
-    vuex: 'vuex',
-    axios: 'axios',
-    'vue-router': 'VueRouter'
-  },
   configureWebpack: {
     plugins: [
       new CompressionPlugin({

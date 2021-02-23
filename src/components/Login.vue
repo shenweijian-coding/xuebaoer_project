@@ -80,7 +80,6 @@ export default {
       } else {
         this.$message({ message: res.msg })
       }
-      console.log(res)
     },
     beforeClose () {
       this.$emit('beforeClose', false)
@@ -99,7 +98,6 @@ export default {
     // 处理登录
     // async handleLogin () {
     //   const res = await this.$store.dispatch('login')
-    //   console.log(res)
     // const { id, expiresIn, imgSrc } = res
     // this.wxUrl = 'data:image/png;base64,' + imgSrc
     // 调用循环  检测用户扫码

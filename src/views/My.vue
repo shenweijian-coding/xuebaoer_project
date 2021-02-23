@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar :activeIndex="activeIndex"/>
+    <NavBar/>
     <div class="my-bg pd">
     <!-- <el-tabs tab-position="left" style="height: 600px;">
     <el-tab-pane label="个人信息">
@@ -84,8 +84,6 @@ export default {
   components: { NavBar },
   data () {
     return {
-      activeIndex: '',
-      returnCitySN: '',
       memberType: '',
       memberMatterTime: '',
       memberVideoTime: '',

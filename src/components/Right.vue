@@ -1,38 +1,20 @@
 <template>
   <div>
-    <!-- 个人信息 -->
-    <!-- <div class="right-userinfo">
-      <div class="info flex2">
-        <div class="label">版本：</div>
-        <div class="value">{{yourVersions}}</div>
-      </div>
-      <div class="info flex2">
-        <div class="label">邮箱：</div>
-        <div class="value">{{yourEmail}}</div>
-      </div>
-      <div class="info flex2">
-        <div class="label">关注时间：</div>
-        <div class="value">{{attentionTime}}</div>
-      </div>
-      <div class="info flex2">
-        <div class="label">登录IP：</div>
-        <div class="value">{{loginIp}}</div>
-      </div>
-    </div> -->
     <!-- 联系方式 -->
     <div class="right-contact">
       <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxerweima.png" alt="微信公众二维码">
     </div>
-    <!-- 二维码 -->
-    <div class="right-banner">
-      <div class="banner-title">小程序(支持PC+手机)观看</div>
-      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxxiaochengxu.jpg" alt="微信小程序二维码">
-    </div>
     <!-- 推销广告 -->
     <div class="right-banner">
-      <!-- <div class="banner-title"></div> -->
       <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/qrcode_for_gh_7f31b0892ccf_258.jpg" alt="微信小程序二维码">
     </div>
+      <!-- 二维码 -->
+    <div class="right-banner">
+      <div class="banner-title">注意事项</div>
+      <p class="tips">1、登录就送永久视达网观看权限。<br />2、观看虎课网时,请提前安装播放插件,自行到使用教程页面下载即可。<br />3、微信公众号同样支持下载素材，扫描上方二维码或者搜索“日常学习宝”。<br />4、如下载失败请及时联系管理员，第一时间解决您的问题。</p>
+    </div>
+    <!-- icp备案 -->
+    <div class="icp">冀ICP备20019087号-1</div>
   </div>
 </template>
 
@@ -40,28 +22,12 @@
 export default {
   data () {
     return {
-      loginIp: '',
-      wordDay: '',
-      yourEmail: '1834638245@qq.com',
-      attentionTime: '2021-02-14',
-      yourVersions: '普通版'
+
     }
   },
   created () {
-    // this.getWordDay()
   },
   mounted () {
-    this.getUserIp()
-  },
-  methods: {
-    getUserIp () {
-      // eslint-disable-next-line no-undef
-      this.loginIp = returnCitySN.cip
-    }
-    // async getWordDay () {
-    //   const res = await this.$request({ url: 'https://api.btstu.cn/yan/api.php?charset=utf-8&encode=json' })
-    //   this.wordDay = res.text
-    // }
   }
 }
 </script>
@@ -75,6 +41,10 @@ ul li {
 }
 img{
   width: 100%;
+}
+.tips{
+  text-align: left;
+  line-height: 26px;
 }
 .right-userinfo{
   height: 120px;
@@ -137,5 +107,9 @@ img{
   word-wrap: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.icp{
+  color: #fff;
+  text-align: left;
 }
 </style>

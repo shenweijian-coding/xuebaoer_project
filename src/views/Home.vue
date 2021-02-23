@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 导航 -->
-    <NavBar :activeIndex="activeIndex"/>
+    <NavBar/>
     <div class="main">
           <!-- 主体布局 -->
       <div class="main-con">
@@ -31,7 +31,6 @@ export default {
   components: { Video, NavBar, Right, Usebtn, Notice },
   data () {
     return {
-      activeIndex: 'index'
     }
   },
   methods: {
@@ -67,8 +66,6 @@ export default {
 .main-right{
   width: 20%;
   min-height: 300px;
-  /* background: #409eff; */
-  /* background: #ffe366;; */
 }
 .flex {
   display: flex;

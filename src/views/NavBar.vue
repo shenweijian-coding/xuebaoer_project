@@ -5,7 +5,6 @@
        <a href="#"><img src="../assets/logo.png" alt=""></a>
        <!-- 菜单 -->
         <el-menu
-        :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
@@ -16,9 +15,7 @@
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
         <el-menu-item index="pay">获取赞助版</el-menu-item>
-        <!-- <el-menu-item index="invite">邀请比赛</el-menu-item> -->
         <el-menu-item index="help">使用教程</el-menu-item>
-        <!-- <el-menu-item index="about">关于本站</el-menu-item> -->
         </el-menu>
        <div @click="handleClickAvatar" class="header-userinfo" v-if="name">
            <div class="header-name">
@@ -26,8 +23,8 @@
          </div>
        <div v-if="isShowSetting" class="userinfo-dialog">
          <ul class="user-setting">
-           <li @click="navMyInfo"> <i class="el-icon-user"></i> 个人信息</li>
-           <li @click.stop="takeOut"> <i class="el-icon-switch-button"></i> 退出登录</li>
+           <li @click="navMyInfo">个人信息</li>
+           <li @click.stop="takeOut">退出登录</li>
          </ul>
        </div>
        </div>
@@ -42,12 +39,6 @@ import Login from '@/components/Login'
 export default {
   components: { Login },
   props: {
-    activeIndex: {
-      type: String,
-      default () {
-        return 'index'
-      }
-    }
   },
   data () {
     return {
@@ -63,7 +54,6 @@ export default {
   },
   mounted () {
     this.name = this.$store.state.name
-    // this.name = Buffer.from(name, 'base64').toString()
   },
   methods: {
     // 跳转我的

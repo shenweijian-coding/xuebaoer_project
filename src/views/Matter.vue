@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar :activeIndex="activeIndex"/>
+    <NavBar/>
     <div class="main">
     <!-- 主体布局 -->
       <div class="main-con">
@@ -71,7 +71,6 @@ export default {
   components: { NavBar, Right, Login, Usebtn },
   data () {
     return {
-      activeIndex: '', // tab激活
       matterLink: '', // 用户输入的素材链接
       isShow: false, // 登录页显示
       matterText: '下载素材',
@@ -168,7 +167,6 @@ export default {
     }
   },
   created () {
-    this.activeIndex = this.$route.path.replace('/', '')
   },
   methods: {
     // 发送请求
@@ -232,6 +230,10 @@ export default {
           }
         }
       })
+      if (btnOptions.code !== 1005) {
+        this.$message({ message: btnOptions.msg })
+        return
+      }
       return btnOptions.url
     },
     // 点击下载按钮
@@ -327,7 +329,7 @@ export default {
           } else if (optionsType === 6) {
             this.downOptions = [{ downText: 'jpg原图', downConfig: { urlLink: 'newdownload/design', p, b: 0, t: 0, f: 5 } }, { downText: 'PSD源文件', downConfig: { urlLink: 'newdownload/design', p, b: 0, t: 0, f: 1 } }]
           } else if (optionsType === 7) {
-            this.downOptions = [{ downText: 'png下载', downConfig: { urlLink: 'newdownload/yuansu', p, b: 0, t: 34, f: 1 } }, { downText: '源文件下载', downConfig: { urlLink: 'newdownload/yuansu', p, b: 0, t: 34, f: 1 } }]
+            this.downOptions = [{ downText: 'png下载', downConfig: { urlLink: 'newdownload/yuansu', p, b: 0, t: 34, f: 3 } }, { downText: '源文件下载', downConfig: { urlLink: 'newdownload/yuansu', p, b: 0, t: 34, f: 1 } }]
           } else if (optionsType === 8) {
             this.downOptions = [{ downText: '预览文件下载', downConfig: { urlLink: `download/video?id=${p}`, p, b: 0, t: 0, f: 6 } }, { downText: '源文件下载', downConfig: { urlLink: `download/video?id=${p}`, p, b: 0, t: 0, f: 7 } }]
           } else if (optionsType === 9) {

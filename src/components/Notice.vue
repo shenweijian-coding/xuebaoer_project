@@ -7,7 +7,6 @@
   center>
   <span>{{dialogInfo}}</span>
   <span slot="footer" class="dialog-footer">
-    <!-- <el-button type="" @click="noShowNotice">不在弹出</el-button> -->
     <el-button type="primary" @click="clickIsShowNotice">朕已知悉</el-button>
   </span>
 </el-dialog>
@@ -18,17 +17,11 @@
 export default {
   data () {
     return {
-      dialogInfo: ''
+      dialogInfo: '',
+      isShowNotice: false
     }
   },
   computed: {
-    isShowNotice: {
-      get () {
-        return this.$store.state.isShowNotice
-      },
-      set (newVal) {
-      }
-    }
   },
   created () {
     this.getHomeInfo()
@@ -37,13 +30,12 @@ export default {
     // 获取首页相关信息
     async getHomeInfo () {
       const res = await this.$request({ url: 'api/info' })
-      this.dialogInfo = res.info
+      this.dialogInfo = res.info.dialogInfo
+      this.isShowNotice = res.info.isShowDislog
     },
-    // 关闭弹窗
     clickIsShowNotice () {
-      this.$store.commit('SET_NOTICE', false)
-    },
-    noShowNotice () {}
+      this.isShowNotice = false
+    }
   }
 }
 </script>

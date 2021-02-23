@@ -44,6 +44,7 @@ export default {
   background: #282828;
   padding: 0;
   height: 100vh;
+  min-width: 1080px;
 }
   /* 滚动条的整体样式 */
   ::-webkit-scrollbar{
@@ -62,4 +63,32 @@ export default {
       /* -webkit-box-shadow:inset 0 0 5px rgba(0,0,0,0.2); */
       background-color: rgba(0,0,0,0.2);
   }
+  .main{
+  width: 100%;
+  height: 100%;
+}
+.main-right img{
+  width: 100%;
+}
+.main-con{
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  position: relative;
+  margin-top: 16px;
+  justify-content: space-between;
+}
+.mian-left{
+  width: 72%;
+  min-height: 300px;
+  background: #ffffff;
+  padding: 30px;
+  overflow: hidden;
+}
+.main-right{
+  width: 20%;
+  min-height: 300px;
+}
+
 </style>

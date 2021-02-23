@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar :activeIndex="activeIndex"/>
+    <NavBar/>
     <!-- 自己的链接区域 -->
     <div class="top-mine-info">
       <!-- <div class="invite-tiitle">复制下方文字分享到设计QQ群，QQ空间、微信群、朋友圈、微博、贴吧、等社交平台，通过您的链接每成功注册1人，您即可获得10天VIP，被邀请者也可获得3天VIP。1天内成功邀请注册≥25人，您即可获取终身VIP奖励。</div> -->
@@ -53,8 +53,7 @@ export default {
   components: { NavBar, Usebtn },
   data () {
     return {
-      activeIndex: 'invite',
-      inviteCode: '12345'
+      inviteCode: ''
     }
   }
 }

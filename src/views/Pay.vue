@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar :activeIndex="activeIndex"/>
+    <NavBar/>
     <div class="pay-top-info">
       <div class="title">·普通版(登录即可获得)·</div>
       <div>视达网播放权限(涵盖课堂素材)+部分网站素材解析。👍</div>
@@ -74,7 +74,6 @@ export default {
   components: { NavBar, Usebtn },
   data () {
     return {
-      activeIndex: 'pay',
       payUrl: '',
       payDialogIsShow: false,
       payData: [

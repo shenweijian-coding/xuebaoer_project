@@ -9,15 +9,11 @@ const store = new Vuex.Store({
     // eslint-disable-next-line node/no-deprecated-api
     name: getToken('userName') || '',
     openId: getToken('userId') || '',
-    isLoading: false,
-    isShowNotice: false
+    isLoading: false
   },
   mutations: {
     SET_NAME: (state, name) => {
       state.name = name
-    },
-    SET_NOTICE: (state, isShow) => {
-      state.isShowNotice = isShow
     },
     RESET: (state) => {
       state.userName = ''
