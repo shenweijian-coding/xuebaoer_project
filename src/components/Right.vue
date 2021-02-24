@@ -45,6 +45,7 @@ img{
 .tips{
   text-align: left;
   line-height: 26px;
+  font-size: 12px;
 }
 .right-userinfo{
   height: 120px;

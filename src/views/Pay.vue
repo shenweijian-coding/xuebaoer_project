@@ -9,7 +9,6 @@
       <div>2.自助赞助目前仅支持支付宝赞助,如需其他通道请联系右下方。👍</div>
       <div>3.自行选择赞助套餐,有任何问题随时联系右下方,随时解决。👍</div>
       <div>4.关注公众号,每周不定时发送免费发放赞助会员。👍</div>
-      <div>5.本站没有永久赞助,如同世间没有永久的事物,因此没有跑路一说,用多久赞助多久即可。👍</div>
       <!-- 付款 -->
       <div class="pay-con">
           <el-table
@@ -77,6 +76,12 @@ export default {
       payUrl: '',
       payDialogIsShow: false,
       payData: [
+        {
+          payType: '试用',
+          payWeb: '任意网站',
+          payPrice: '1',
+          payTimeOrNum: '无到期时间'
+        },
         {
           payType: '赞助一',
           payWeb: '千图、包图、摄图、千库、90设计、熊猫办公、觅元素、觅知网、众图网等(送虎课网)',

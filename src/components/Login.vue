@@ -72,7 +72,6 @@ export default {
       const res = await this.$store.dispatch('login', this.userInfo)
       if (res.msg === '登录成功') {
         this.$store.dispatch('getUserInfo')
-        this.$message({ message: res.msg, type: 'success' })
         // 密码通过 存入local
         localStorage.setItem('u', this.userInfo.userName)
         localStorage.setItem('p', this.userInfo.userPwd)
