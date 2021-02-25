@@ -1,5 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+/* eslint-disable no-undef */
+// import Vue from 'vue'
+// import Vuex from 'vuex'
 import { login } from '../api/login'
 import { getToken, removeToken } from '../utils/auth'
 Vue.use(Vuex)

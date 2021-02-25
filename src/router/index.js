@@ -1,5 +1,6 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+/* eslint-disable no-undef */
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
 import { getToken } from '../utils/auth'
 const Home = () => import('../views/Home.vue')
 const Matter = () => import('../views/Matter')

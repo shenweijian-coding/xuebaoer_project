@@ -2,7 +2,6 @@
   <div>
     <el-row>
     <el-col :span="23">
-      <!-- <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/video.png" v-if="!playerOptions.sources[0].src" alt=""> -->
       <div v-if="!playerOptions.sources[0].src && !hukeVideoUrl" class="no-video flex">
         <div class="video-tip">提示：视达网可直接免费观看，虎课网请提前安装播放插件。</div>
       </div>
@@ -24,7 +23,7 @@
      </div>
     <el-row style="margin-top:14px">
       <el-col :span="20">
-        <el-input style="width:98%;" v-model="videoLink" placeholder="请输入视频链接"></el-input>
+        <el-input style="width:98%;" v-model="videoLink" placeholder="https://shida66.com/8047.html"></el-input>
       </el-col>
       <el-col :span="2"><el-button class="play-btn" type="primary" @click="play" :disabled="playText!=='立即观看'">{{playText}}</el-button></el-col>
     </el-row>
@@ -69,7 +68,7 @@ export default {
         controls: true,
         aspectRatio: '16:9', // 视频比例
         techOrder: ['html5'],
-        poster: '', // 你的封面地址
+        poster: 'https://img.shida66.com/upload/special_cover_img/2020/11/18/dce7884eecaeca8c15c7fbae62a14631.jpg?imageMogr2/format/webp', // 你的封面地址
         notSupportedMessage: '请复制播放链接至上方输入框', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
         sourceOrder: true,
         flash: {
@@ -80,7 +79,7 @@ export default {
           {
             withCredentials: false,
             type: 'application/x-mpegURL',
-            src: ''
+            src: 'https://video.shida66.com/m3u8_sd/2020/11/18/03FE0BD8-136A-46DA-E718-A8294DE1EB89.m3u8'
           }
         ]
       },

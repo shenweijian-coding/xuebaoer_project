@@ -1,8 +1,9 @@
+/* eslint-disable no-undef */
 import { getToken } from '../utils/auth'
 import store from '../store/index'
-const axios = require('axios')
+// const axios = require('axios')
 var instance = axios.create({
-  baseURL: 'http://127.0.0.1:3000',
+  baseURL: '',
   timeout: 10000,
   withCredentials: true
 })

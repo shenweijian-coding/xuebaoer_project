@@ -2,12 +2,17 @@
   <div>
     <NavBar/>
     <div class="my-bg pd">
-    <!-- <el-tabs tab-position="left" style="height: 600px;">
-    <el-tab-pane label="个人信息">
-      个人信息
-    </el-tab-pane>
-    <el-tab-pane label="下载记录">配置管理</el-tab-pane>
-  </el-tabs> -->
+      <el-row>
+        <el-col :span="16">
+          <div>更改账号密码</div>
+        <div class="flex">
+        <div class=""><el-input v-model="userName" placeholder="请输入账号" disabled></el-input> </div>
+          <div class=""><el-input v-model="oldPwd" placeholder="请输入原密码"></el-input> </div>
+          <div class=""><el-input v-model="newPwd" placeholder="请输入新密码"></el-input> </div>
+          <el-button type="primary" @click="updatePwd">保存</el-button>
+        </div>
+        </el-col>
+      </el-row>
     <el-row>
       <el-col :span="24">
       <div>你的邮箱</div>
@@ -89,7 +94,10 @@ export default {
       memberVideoTime: '',
       email: '',
       matterWeb: [{}],
-      videoWeb: [{}]
+      videoWeb: [{}],
+      userName: '',
+      oldPwd: '',
+      newPwd: ''
     }
   },
   created () {
@@ -101,6 +109,7 @@ export default {
   methods: {
     // 获取网站信息
     async getWebInfo () {
+      this.userName = this.$store.state.name
       const { info } = await this.$request({
         url: 'api/userinfo'
       })
@@ -109,6 +118,10 @@ export default {
       this.memberMatterTime = info.dueTime === '2021-01-01' ? '未赞助' : info.dueTime
       this.memberVideoTime = info.videoTime === '2021-01-01' ? '未赞助' : info.videoTime
       this.matterWeb = [
+        {
+          webName: '总次数',
+          dueNum: info.allDownNum
+        },
         {
           webName: '千图网',
           dueNum: info.qiantuNum
@@ -193,6 +206,27 @@ export default {
         message: res.msg,
         type: 'success'
       })
+    },
+    // 更新密码
+    async updatePwd () {
+      if (!this.oldPwd.trim().length || !this.newPwd.trim().length) {
+        return this.$message({ message: '不能为空' })
+      }
+      const res = await this.$request({
+        url: '/api/updatepwd',
+        method: 'POST',
+        data: {
+          oldPwd: this.oldPwd,
+          newPwd: this.newPwd
+        }
+      })
+      this.$message({
+        message: res.msg,
+        type: res.code === 1 ? 'success' : 'warning'
+      })
+      if (res.code === 1) {
+        localStorage.setItem('p', this.newPwd)
+      }
     }
   }
 }
@@ -231,5 +265,12 @@ p{
 .flex{
   display: flex;
   width: 100%;
+}
+.flex2{
+  display: flex;
+  width: 40%;
+}
+.el-input{
+  width: 88%;
 }
 </style>

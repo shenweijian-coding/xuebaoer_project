@@ -181,12 +181,7 @@ export default {
         this.reqData = { urlLink: this.matterLink }
       }
       if (this.urlType === 13) {
-        if (e.includes('http')) {
-          window.open(e)
-          return
-        } else {
-          this.reqData = { urlLink: this.matterLink, code: e }
-        }
+        this.reqData = { urlLink: this.matterLink, a: e }
       }
       // 发送请求
       let res = ''
@@ -209,7 +204,6 @@ export default {
         })
       }
       if (JSON.stringify(res.url) !== '{}') {
-        // this.handleIsDisabled()
         if (res.code !== 1005) {
           this.$message({
             message: res.msg,
@@ -219,10 +213,6 @@ export default {
         }
         if (this.urlType === 19 || this.urlType === 20) {
           this.copyDownUrl = res.url
-          return
-        }
-        if (this.urlType === 18 || this.urlType === 12) {
-          window.open(res.url['立即下载'])
           return
         }
         window.open(res.url)
@@ -390,13 +380,11 @@ export default {
           this.reqData.d = linkArrData[4].split('.')[0]
           break
         case 18:
+          this.downOptions = [{ downText: 'PSD文件', downConfig: '' }]
           break
-        case 13:
+        case 13: // 千库
           optionsType = await this.getOptionBtnFromNode()
-          optionsType = JSON.parse(JSON.stringify(optionsType).replace(/<\/a>/g, '').replace(/#/g, ''))
-          for (const i in optionsType) {
-            this.downOptions.push({ downText: i, downConfig: optionsType[i] })
-          }
+          optionsType === 1 ? this.downOptions = [{ downText: '立即下载', downConfig: '' }] : this.downOptions = [{ downText: '图片文件', downConfig: 1 }, { downText: '源文件', downConfig: 2 }]
           break
         default:
           break
