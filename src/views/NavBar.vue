@@ -14,7 +14,9 @@
         active-text-color="">
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
-        <el-menu-item index="pay">获取赞助版</el-menu-item>
+        <el-menu-item index="pay">
+            获取赞助版
+        </el-menu-item>
         <el-menu-item index="help">使用教程</el-menu-item>
         </el-menu>
        <div @click="handleClickAvatar" class="header-userinfo" v-if="name">

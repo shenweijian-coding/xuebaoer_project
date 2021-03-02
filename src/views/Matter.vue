@@ -23,7 +23,7 @@
         <el-row v-if="copyDownUrl" style="line-height:40px">
           <el-col :span="22">
             <div>复制下方链接到浏览器打开即可</div>
-            <div>{{copyDownUrl}}</div>
+            <p>{{copyDownUrl}}</p>
           </el-col>
         </el-row>
         <!-- 网站区域 -->
@@ -341,30 +341,39 @@ export default {
           }
           break
         case 24: // 觅知
-          this.reqData.d = linkArrData[4].split('.')[0]
           if (linkArrData[3] === 'sucai') {
             this.downOptions = [{ downText: '下载图片文件', downConfig: { a: 17, f: 'image' } }, { downText: '下载源文件', downConfig: { a: 17, f: 'source' } }]
+            this.reqData.d = linkArrData[4].split('.')[0]
           } else if (linkArrData[3] === 'ppt') {
             this.downOptions = [{ downText: '下载PPT', downConfig: { a: 9, f: '' } }]
+            this.reqData.d = linkArrData[5].split('.')[0]
           } else if (linkArrData[3] === 'muban') {
             this.downOptions = [{ downText: '下载模板', downConfig: { a: 18, f: '' } }]
+            this.reqData.d = linkArrData[4].split('.')[0]
           } else if (linkArrData[3] === 'tupian') {
             this.downOptions = [{ downText: '图片文件', downConfig: { a: 3, f: '' } }]
+            this.reqData.d = linkArrData[4].split('.')[0]
           } else if (linkArrData[3] === 'fonts') {
-            return this.$message.error('暂不支持觅知字体')
+            return this.$message.error('字体文件请联系右下方管理代下，谢谢')
             // this.downOptions = [{ downText: '下载字体', downConfig: { a: 19, f: '' } }]
           } else if (linkArrData[3] === 'shipin') {
             this.downOptions = [{ downText: '视频mp4', downConfig: { a: 5, f: 2 } }, { downText: '视频源文件', downConfig: { a: 5, f: '' } }]
+            this.reqData.d = linkArrData[5].split('.')[0]
           } else if (linkArrData[3] === 'wendang') {
             this.downOptions = [{ downText: '下载文档', downConfig: { a: 10, f: '' } }]
+            this.reqData.d = linkArrData[5].split('.')[0]
           } else if (linkArrData[3] === 'shouchaobao') {
             this.downOptions = [{ downText: '下载手抄报', downConfig: { a: 8, f: '' } }]
+            this.reqData.d = linkArrData[5].split('.')[0]
           } else if (linkArrData[3] === 'biaoge') {
             this.downOptions = [{ downText: '下载excel', downConfig: { a: 11, f: '' } }]
+            this.reqData.d = linkArrData[5].split('.')[0]
           } else if (linkArrData[3] === 'sound') {
             this.downOptions = [{ downText: '下载mp3', downConfig: { a: 21, f: 1 } }, { downText: '下载wav', downConfig: { a: 21, f: '' } }]
+            this.reqData.d = linkArrData[4].split('.')[0]
           } else if (linkArrData[3] === 'dianshang') {
             this.downOptions = [{ downText: '下载文件', downConfig: { a: 22, f: '' } }]
+            this.reqData.d = linkArrData[4].split('.')[0]
           }
           break
         case 22: // 我图

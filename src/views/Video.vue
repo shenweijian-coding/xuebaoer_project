@@ -64,7 +64,7 @@ export default {
       playerOptions: {
         playbackRates: [0.5, 1.0, 1.5, 2.0], // 可选的播放速度
         overNative: true,
-        autoplay: true, // 是否自动播放
+        autoplay: false, // 是否自动播放
         controls: true,
         aspectRatio: '16:9', // 视频比例
         techOrder: ['html5'],
