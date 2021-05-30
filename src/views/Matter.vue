@@ -9,7 +9,7 @@
         <el-row>
           <!-- 输入网址区域 -->
           <el-col :span="20">
-            <el-input style="width:98%;" v-model="matterLink" placeholder="请输入素材链接"></el-input>
+            <el-input style="width:98%;" v-model="matterLink" placeholder="请复制素材链接，先点击右边按钮，再点击输入框下方出现的按钮"></el-input>
           </el-col>
           <el-col :span="2"> <el-button class="matter-btn" type="primary" @click="downMatter" :disabled="matterText!='下载素材'">{{matterText}}</el-button></el-col>
         </el-row>
@@ -510,7 +510,7 @@ export default {
 .site-item{
   border: 1px solid #eef3f7;
   padding: 10px;
-  width: 180px;
+  width: 160px;
   color: #807d7d;
   font-size: 14px;
 }

@@ -10,7 +10,7 @@
         :default-active="curNavName"
         @select="handleSelect"
         router
-        background-color="#545c64"
+        background-color="#fff"
         text-color="#71777c"
         active-text-color="#409eff">
         <el-menu-item index="index">视频观看</el-menu-item>

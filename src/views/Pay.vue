@@ -54,7 +54,7 @@
       </div>
       <!-- 赞助弹窗 -->
       <el-dialog
-        title=""
+        title="请放心扫码赞助，排版可能显示错乱。"
         :visible.sync="payDialogIsShow"
         width="width"
         :before-close="payDialogBeforeClose">

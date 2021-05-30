@@ -10,7 +10,8 @@ const store = new Vuex.Store({
     // eslint-disable-next-line node/no-deprecated-api
     name: getToken('userName') || '',
     openId: getToken('userId') || '',
-    isLoading: false
+    isLoading: false,
+    curNavName: 'matter'
   },
   mutations: {
     SET_NAME: (state, name) => {
@@ -28,11 +29,15 @@ const store = new Vuex.Store({
     },
     SET_USERID: (state, data) => {
       state.userId = data
+    },
+    SET_CURNAVNAME: (state, curNavName) => {
+      state.curNavName = curNavName
     }
   },
   getters: {
     name: state => state.name,
-    isLoading: state => state.isLoading
+    isLoading: state => state.isLoading,
+    curNavName: state => state.curNavName
   },
   actions: {
     // 登录
@@ -42,6 +47,9 @@ const store = new Vuex.Store({
           resolve(res)
         })
       })
+    },
+    changeNavName ({ commit }, curNavName) {
+      commit('SET_CURNAVNAME', curNavName)
     },
     getUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {

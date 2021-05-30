@@ -9,14 +9,8 @@
       <div class="header">登录</div>
       <div class="login-con">
         <div class="login login-left">
-          <div class="title">加入学宝儿你可以获得</div>
-          <p>1.视达网观看+课堂源文件下载(登录即可获得)</p>
-          <p>2.部分素材网站下载(登录即可获得)</p>
-          <p>3.虎课网观看+课堂源文件下载</p>
-          <p>4.20+素材网站源文件极速下载</p>
-          <p>5.每周定时优惠福利发放</p>
-          <p>6.设计社群交流,结识设计同行好友</p>
-          <!-- <img src="" alt="温馨提示"> -->
+          <div class="title">示例截图</div>
+            <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/05/16223739661.png" alt="微信公众号">
         </div>
         <div class="login login-right">
           <div class="title">学宝儿素材网</div>
