@@ -43,7 +43,7 @@ export default {
   color: #2c3e50;
   background: #282828;
   padding: 0;
-  height: 100vh;
+  min-height: 100vh;
   min-width: 1080px;
 }
   /* 滚动条的整体样式 */

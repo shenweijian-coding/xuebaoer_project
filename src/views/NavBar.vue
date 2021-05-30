@@ -7,21 +7,20 @@
         <el-menu
         class="el-menu-demo"
         mode="horizontal"
+        :default-active="curNavName"
         @select="handleSelect"
         router
-        background-color="#fff"
+        background-color="#545c64"
         text-color="#71777c"
-        active-text-color="">
+        active-text-color="#409eff">
         <el-menu-item index="index">视频观看</el-menu-item>
         <el-menu-item index="matter">素材下载</el-menu-item>
-        <el-menu-item index="pay">
-            获取赞助版
-        </el-menu-item>
+        <el-menu-item index="pay">充值赞助</el-menu-item>
         <el-menu-item index="help">使用教程</el-menu-item>
         </el-menu>
        <div @click="handleClickAvatar" class="header-userinfo" v-if="name">
            <div class="header-name">
-           <p>欢迎您,{{name}}</p>
+           <p>查看个人信息 当前账号【{{name}}】</p>
          </div>
        <div v-if="isShowSetting" class="userinfo-dialog">
          <ul class="user-setting">
@@ -40,8 +39,7 @@
 import Login from '@/components/Login'
 export default {
   components: { Login },
-  props: {
-  },
+  props: ['curNavName'],
   data () {
     return {
       isShow: false,
@@ -54,6 +52,8 @@ export default {
   watch: {
 
   },
+  created () {
+  },
   mounted () {
     this.name = this.$store.state.name
   },
@@ -63,6 +63,7 @@ export default {
       this.$router.push('/my')
     },
     handleSelect (key, keyPath) {
+      this.$store.dispatch('changeNavName', key)
     },
     login () {
       this.isShow = !this.isShow
@@ -151,6 +152,7 @@ export default {
 }
 .el-menu-item{
   border: none !important;
+  background-color:#fff  !important ;
 }
 .el-menu--horizontal>.el-menu-item.is-active{
   border: none !important;

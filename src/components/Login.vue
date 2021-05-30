@@ -92,7 +92,7 @@ export default {
     },
     // 忘记密码
     clickForgetPwd () {
-      this.$message({ message: '请先联系右下方,后期开发' })
+      this.$message({ message: '忘记密码请至公众号回复“找回密码“即可' })
     },
     // 处理登录
     // async handleLogin () {
@@ -203,6 +203,7 @@ p{
 .get-id{
   cursor: pointer;
   color: #409eff;
+  font-weight: bold;
 }
 .find-pwd{
   cursor: pointer;

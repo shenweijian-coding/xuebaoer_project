@@ -21,7 +21,8 @@ import {
   Collapse,
   CollapseItem,
   Table,
-  TableColumn
+  TableColumn,
+  Tag
 } from 'element-ui'
 Vue.use(Menu)
 Vue.use(MenuItem)
@@ -36,6 +37,7 @@ Vue.use(CarouselItem)
 Vue.use(Collapse)
 Vue.use(CollapseItem)
 Vue.use(Table)
+Vue.use(Tag)
 Vue.use(TableColumn)
 Vue.config.productionTip = false
 Vue.prototype.$request = request

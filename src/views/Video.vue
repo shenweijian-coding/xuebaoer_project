@@ -22,10 +22,15 @@
         <div v-for="(item,i) in downOptions" :key="i" class="sourcefile" @click="downVideoFile(item)">{{item.downText}}</div>
      </div>
     <el-row style="margin-top:14px">
-      <el-col :span="20">
-        <el-input style="width:98%;" v-model="videoLink" placeholder="https://shida66.com/8047.html"></el-input>
+      <el-col :span="23">
+        <el-input style="width:100%;" v-model="M3U8url" placeholder="这里是解析成功后的m3u8地址，复制到下载器可下载视频。"></el-input>
       </el-col>
-      <el-col :span="2"><el-button class="play-btn" type="primary" @click="play" :disabled="playText!=='立即观看'">{{playText}}</el-button></el-col>
+    </el-row>
+    <el-row style="margin-top:14px">
+      <el-col :span="20">
+        <el-input style="width:100%;" v-model="videoLink" placeholder="https://shida66.com/8047.html"></el-input>
+      </el-col>
+      <el-col :span="3"><el-button class="play-btn" type="primary" @click="play" :disabled="playText!=='立即观看'">{{playText}}</el-button></el-col>
     </el-row>
         <el-row class="web-options">
       <el-col :span="24">
@@ -58,6 +63,7 @@ export default {
       isShow: false,
       downOptions: [],
       urlType: '',
+      M3U8url: '',
       playText: '立即观看',
       playDisabled: false, // 播放是否禁用
       hukeVideoUrl: '', // 虎课播放链接
@@ -208,6 +214,7 @@ export default {
         this.playerOptions.sources[0].type = type
         // this.handleIsDisabled()
         this.playerOptions.sources[0].src = res.res.url // 播放链接
+        this.M3U8url = res.res.url
         // eslint-disable-next-line no-unused-expressions
         res.res.isShowDown ? this.getDownOption(res.res) : '' // 获取后台的配置
       } else if (this.urlType === 11) { // 如果是虎课网
@@ -217,7 +224,9 @@ export default {
         if (res.code !== 1005) return this.$message.info(res.msg)
         this.getDownOption(res.res)
         // this.handleIsDisabled()
-        this.hukeVideoUrl = 'chrome-extension://fmiemdpcncaapleljkbkkcljdaihmnbc/player.html#' + res.res.videoUrl
+        this.M3U8url = res.res.videoUrl
+        // this.hukeVideoUrl = 'chrome-extension://fmiemdpcncaapleljkbkkcljdaihmnbc/player.html#' + res.res.videoUrl
+        window.open(res.res.videoUrl)
       } else {
         this.$message.error('解析失败,多次错误,请联系管理员处理~')
       }
@@ -294,7 +303,7 @@ export default {
 }
 .no-video{
   width: 100%;
-  height: 500px;
+  min-height: 500px;
   background: #000;
 }
 .video-tip{

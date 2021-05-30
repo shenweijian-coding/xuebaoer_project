@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar/>
+    <NavBar :curNavName="curNavName"/>
     <div class="main">
     <!-- 主体布局 -->
       <div class="main-con">
@@ -15,8 +15,12 @@
         </el-row>
         <!-- 下载选项区域 -->
         <el-row v-if="downOptions && !copyDownUrl">
-          <el-col :span="22" class="flex site-option">
+          <el-col v-if="downOptions && !userDownUrl" :span="22" class="flex site-option">
             <div v-for="(item,i) in downOptions" :key="i" @click="downCurTypeFile(item.downConfig)" class="option-item png">{{item.downText}}</div>
+          </el-col>
+          <!-- 下载按钮区域 -->
+          <el-col v-else :span="22">
+            <a :href="userDownUrl" class="downUrl" target="_blank">解析成功，点我直接下载</a>
           </el-col>
         </el-row>
         <!-- 网址复制区域 -->
@@ -31,15 +35,24 @@
         <el-col :span="23">
           <div class="site-total flex">
           <div v-for="(item,i) in siteArray" :key="i" class="site-item">
-            <a target="blank" :href="item.webUrl">{{item.webName}}<p class="istoll">{{item.isToll?'':'(免费)'}}</p></a>
+            <a target="_blank" :href="item.webUrl">{{item.webName}}<p class="istoll">{{item.isToll?'':'(免费)'}}</p></a>
           </div>
           </div>
         </el-col>
         </el-row>
+                <el-tag
+                style="margin-top:20px"
+        v-if="isShowTag"
+          closable
+          size=""
+          @close="handleClose"
+          type="warning">
+          {{helpInfo}}
+        </el-tag>
         <!-- banner区域 -->
         <el-row style="margin-top:20px">
           <el-col :span="23">
-            <el-carousel height="260px" :interval="5000">
+            <el-carousel height="" :interval="5000">
               <el-carousel-item v-for="(item, i) in bannerList" :key="i">
                 <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=1bPHq4DhOFKvBann4a3ZG1fqBYfxqK5X&noverify=0">
                   <img :src="item.imgUrl" alt="联系QQ1834638245">
@@ -67,13 +80,17 @@ import { isURL } from '../utils/helper'
 import { getToken } from '../utils/auth'
 import Login from '../components/Login.vue'
 import Usebtn from '@/components/Usebtn'
+import { mapGetters } from 'vuex'
 export default {
   components: { NavBar, Right, Login, Usebtn },
   data () {
     return {
+      helpInfo: '',
+      isShowTag: true,
       matterLink: '', // 用户输入的素材链接
       isShow: false, // 登录页显示
       matterText: '下载素材',
+      userDownUrl: '', // 用户下载的链接
       reqData: {}, // 发送请求的对象
       urlType: '', // 网站的类型
       downloadFile: '',
@@ -131,12 +148,12 @@ export default {
         {
           webName: '六图网',
           webUrl: 'http://www.16pic.com/',
-          isToll: false
+          isToll: true
         },
         {
           webName: '易图网',
           webUrl: 'https://ibaotu.com/',
-          isToll: false
+          isToll: true
         },
         {
           webName: '图精灵',
@@ -166,9 +183,22 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters([
+      'curNavName'
+    ])
+  },
   created () {
+    this.getHelpInfo()
   },
   methods: {
+    async getHelpInfo () {
+      const res = await this.$request({ url: 'api/info' })
+      this.helpInfo = res.info.helpInfo
+    },
+    handleClose (e) {
+      this.isShowTag = false
+    },
     // 发送请求
     async downCurTypeFile (e) {
       if (this.urlType === 23 || this.urlType === 16 || this.urlType === 24 || this.urlType === 21) {
@@ -211,13 +241,13 @@ export default {
           })
           return
         }
-        if (this.urlType === 19 || this.urlType === 20) {
+        if (this.urlType === 19 || this.urlType === 20 || this.urlType === 18) {
           this.copyDownUrl = res.url
           return
         }
-        window.open(res.url)
+        this.userDownUrl = res.url
       } else {
-        this.$message({ message: '解析失败,请售后再试，或点击右方联系站长', type: 'warning' })
+        this.$message({ message: '解析失败,请一会再试或点击右方联系站长', type: 'warning' })
       }
     },
     // 获取后台配置按钮信息
@@ -241,6 +271,8 @@ export default {
     // 点击下载按钮
     async downMatter () {
       this.copyDownUrl = ''
+      this.userDownUrl = ''
+      this.downOptions = []
       const url = this.matterLink
       if (!url) {
         this.$message.error('请输入素材链接哦~')
@@ -252,6 +284,10 @@ export default {
       }
       if (url.includes('down')) {
         this.$message.error('请复制该素材主页面链接,不要点击下载按钮')
+        return
+      }
+      if (url.includes('//m.')) {
+        this.$message.error('请复制素材PC端的链接')
         return
       }
       if (!getToken('userId')) {
@@ -300,7 +336,7 @@ export default {
           this.reqData.d = linkArrData[4].split('.')[0]
           break
         case 16:
-          this.downOptions = [{ downText: '推荐通道', downConfig: '6' }, { downText: '电信通道', downConfig: '2' }, { downText: '联通网通', downConfig: '5' }]
+          this.downOptions = [{ downText: '推荐通道', downConfig: '0' }, { downText: '电信通道', downConfig: '2' }, { downText: '联通网通', downConfig: '5' }]
           this.reqData.d = linkArrData[4].split('.')[0]
           break
         case 17:
@@ -393,7 +429,7 @@ export default {
           break
         case 13: // 千库
           optionsType = await this.getOptionBtnFromNode()
-          optionsType === 1 ? this.downOptions = [{ downText: '立即下载', downConfig: '' }] : this.downOptions = [{ downText: '图片文件', downConfig: 1 }, { downText: '源文件', downConfig: 2 }]
+          optionsType === 1 ? this.downOptions = [{ downText: '立即下载', downConfig: 1 }] : this.downOptions = [{ downText: '图片文件', downConfig: 1 }, { downText: '源文件', downConfig: 2 }]
           break
         default:
           break
@@ -495,20 +531,6 @@ export default {
   /* font-size: 10px; */
   display: inline;
 }
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 150px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-}
-.el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-}
 .site-option{
   margin-top: 10px;
 }
@@ -526,5 +548,19 @@ export default {
 }
 .psd{
   background: #17cedd;
+}
+.el-carousel__item.is-active{
+  z-index: 1;
+}
+.downUrl{
+  margin-top: 20px;
+  display: inline-block;
+  /* width: 100px; */
+  padding: 2px 20px;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 34px;
+  background: #f4543c;
 }
 </style>

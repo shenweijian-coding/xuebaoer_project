@@ -235,7 +235,7 @@ export default {
 <style scoped>
 .my-bg{
   width: 76%;
-  height: 600px;
+  /* height: 600px; */
   background: #fff;
   margin: 14px auto;
   text-align: left;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar/>
+    <NavBar :curNavName="curNavName"/>
     <div class="pay-top-info">
       <div class="title">👍赞助成功，对应权限即刻到账。有任何问题及时联系右下方，不用不好意思哈~👍</div>
       <!-- <div class="title">·普通版(登录即可获得)·</div>
@@ -75,6 +75,7 @@
 import NavBar from '@/views/NavBar'
 import Usebtn from '@/components/Usebtn'
 import { getToken } from '../utils/auth'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { NavBar, Usebtn },
@@ -85,28 +86,28 @@ export default {
       payData: [
         {
           payType: '试用',
-          payWeb: '站内所有网站(昵图除外)/1次',
+          payWeb: '站内所有网站(昵图虎课除外)/1次',
           payPrice: '1',
           payTimeOrNum: '无到期时间',
           isHot: false
         },
         {
           payType: '赞助一',
-          payWeb: '站内所有网站(昵图除外)/50次',
+          payWeb: '站内所有网站(昵图虎课除外)/50次',
           payPrice: '11',
           payTimeOrNum: '无到期时间',
           isHot: true
         },
         {
           payType: '赞助二',
-          payWeb: '千图、包图、摄图、千库、90设计、熊猫办公、觅元素、觅知网、众图网等(送虎课网)',
+          payWeb: '千图、包图、摄图、千库、90设计、熊猫办公、觅元素、觅知网、众图网等',
           payPrice: '70',
           payTimeOrNum: '365天',
           isHot: true
         },
         {
           payType: '赞助三',
-          payWeb: '站内所有网站(昵图除外)/10次',
+          payWeb: '站内所有网站(昵图虎课除外)/10次',
           payPrice: '3',
           payTimeOrNum: '无到期时间',
           isHot: true
@@ -144,6 +145,11 @@ export default {
     }
   },
   created () {
+  },
+  computed: {
+    ...mapGetters([
+      'curNavName'
+    ])
   },
   methods: {
     // 支付弹窗

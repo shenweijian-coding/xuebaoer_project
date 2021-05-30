@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 导航 -->
-    <NavBar/>
+    <NavBar :curNavName="curNavName"/>
     <div class="main">
           <!-- 主体布局 -->
       <div class="main-con">
@@ -26,12 +26,18 @@ import NavBar from '@/views/NavBar'
 import Right from '@/components/Right'
 import Usebtn from '../components/Usebtn.vue'
 import Notice from '@/components/Notice'
+import { mapGetters } from 'vuex'
 export default {
   // eslint-disable-next-line vue/no-unused-components
   components: { Video, NavBar, Right, Usebtn, Notice },
   data () {
     return {
     }
+  },
+  computed: {
+    ...mapGetters([
+      'curNavName'
+    ])
   },
   methods: {
 

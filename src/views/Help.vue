@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar/>
+    <NavBar :curNavName="curNavName"/>
     <div class="main-bg">
       <div class="main-help">
           <div class="title">网站使用说明(使用本站必读)</div>
@@ -27,13 +27,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import NavBar from './NavBar.vue'
 export default {
   components: { NavBar },
-  data () {
-    return {
-      activeNames: ''
-    }
+  computed: {
+    ...mapGetters([
+      'curNavName'
+    ])
   }
 }
 </script>
