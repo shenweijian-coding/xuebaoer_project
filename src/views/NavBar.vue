@@ -13,10 +13,18 @@
         background-color="#fff"
         text-color="#71777c"
         active-text-color="#409eff">
-        <el-menu-item index="index">视频观看</el-menu-item>
-        <el-menu-item index="matter">素材下载</el-menu-item>
-        <el-menu-item index="pay">充值赞助</el-menu-item>
-        <el-menu-item index="help">使用教程</el-menu-item>
+        <el-menu-item index="index">
+          <i class="el-icon-video-camera-solid"></i><span slot="title">视频观看</span>
+        </el-menu-item>
+        <el-menu-item index="matter">
+          <i class="el-icon-upload"></i><span slot="title">素材下载</span>
+        </el-menu-item>
+        <el-menu-item index="pay">
+          <i class="el-icon-s-finance"></i><span slot="title">充值赞助</span>
+        </el-menu-item>
+        <el-menu-item index="help">
+          <i class="el-icon-s-opportunity"></i><span slot="title">使用教程</span>
+        </el-menu-item>
         </el-menu>
        <div @click="handleClickAvatar" class="header-userinfo" v-if="name">
            <div class="header-name">

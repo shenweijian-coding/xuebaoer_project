@@ -2,8 +2,9 @@
 import { getToken } from '../utils/auth'
 import store from '../store/index'
 // const axios = require('axios')
+
 var instance = axios.create({
-  baseURL: '',
+  baseURL: process.env.VUE_APP_MODE === 'production' ? '' : 'http://localhost:3000',
   timeout: 10000,
   withCredentials: true
 })

@@ -70,19 +70,21 @@
     </div>
     <Login @beforeClose="beforeClose" :isShow="isShow"/>
     <Usebtn />
+    <Notice />
   </div>
 </template>
 
 <script>
 import NavBar from '@/views/NavBar'
 import Right from '@/components/Right'
+import Notice from '@/components/Notice'
 import { isURL } from '../utils/helper'
 import { getToken } from '../utils/auth'
 import Login from '../components/Login.vue'
 import Usebtn from '@/components/Usebtn'
 import { mapGetters } from 'vuex'
 export default {
-  components: { NavBar, Right, Login, Usebtn },
+  components: { NavBar, Right, Login, Usebtn, Notice },
   data () {
     return {
       helpInfo: '',
@@ -97,7 +99,7 @@ export default {
       copyDownUrl: '', // 熊猫办公
       downOptions: [],
       bannerList: [{
-        imgUrl: 'https://yuanxiaoshen.com/wp-content/uploads/2021/02/banner1.jpg'
+        imgUrl: 'http://clumsybird.work/static/img/img4.jpg'
       }],
       siteArray: [ // 要展示的网站数组
         {
@@ -158,7 +160,17 @@ export default {
         {
           webName: '图精灵',
           webUrl: 'http://616pic.com/',
-          isToll: false
+          isToll: true
+        },
+        {
+          webName: '氢元素(新增)',
+          webUrl: 'https://49pic.com/',
+          isToll: true
+        },
+        {
+          webName: '办公资源(新增)',
+          webUrl: 'https://www.bangongziyuan.com/',
+          isToll: true
         },
         {
           webName: '图克巴巴',
@@ -176,8 +188,8 @@ export default {
           isToll: false
         },
         {
-          webName: '待上新',
-          webUrl: '',
+          webName: '字魂网(待上线)',
+          webUrl: 'https://izihun.com/',
           isToll: true
         }
       ]
@@ -207,7 +219,7 @@ export default {
       if (this.urlType === 15) {
         this.reqData = e
       }
-      if (this.urlType === 12 || this.urlType === 18) {
+      if (this.urlType === 12 || this.urlType === 18 || this.urlType === 26 || this.urlType === 27) {
         this.reqData = { urlLink: this.matterLink }
       }
       if (this.urlType === 13) {
@@ -241,7 +253,7 @@ export default {
           })
           return
         }
-        if (this.urlType === 19 || this.urlType === 20 || this.urlType === 18) {
+        if (this.urlType === 19 || this.urlType === 20 || this.urlType === 18 || this.urlType === 26) {
           this.copyDownUrl = res.url
           return
         }
@@ -431,6 +443,12 @@ export default {
           optionsType = await this.getOptionBtnFromNode()
           optionsType === 1 ? this.downOptions = [{ downText: '立即下载', downConfig: 1 }] : this.downOptions = [{ downText: '图片文件', downConfig: 1 }, { downText: '源文件', downConfig: 2 }]
           break
+        case 26: // 氢元素
+          this.downOptions = [{ downText: '立即下载', downConfig: '' }]
+          break
+        case 27: // 办公资源
+          this.downOptions = [{ downText: '立即下载', downConfig: '' }]
+          break
         default:
           break
       }
@@ -438,7 +456,7 @@ export default {
     // 取出网站对应编号
     discernSiteType () {
       const pendingUrl = this.matterLink
-      const reg = RegExp(/58pic|616pic|588ku|ztupic|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic|51miz/)
+      const reg = RegExp(/58pic|616pic|588ku|ztupic|ibaotu|699pic|nipic|90sheji|tukuppt|16pic|tuke|51yuansu|ooopic|51miz|bangongziyuan|49pic/)
       if (!reg.test(pendingUrl)) {
         this.$message.error('暂不支持该网站哦~')
         return
@@ -474,6 +492,10 @@ export default {
         urlType = 24
       } else if (pendingUrl.indexOf('ztupic') !== -1) {
         urlType = 25
+      } else if (pendingUrl.indexOf('49pic') !== -1) {
+        urlType = 26
+      } else if (pendingUrl.indexOf('bangongziyuan') !== -1) {
+        urlType = 27
       }
       return urlType
     },
@@ -509,8 +531,8 @@ export default {
 }
 .site-item{
   border: 1px solid #eef3f7;
-  padding: 10px;
-  width: 160px;
+  padding: 8px;
+  width: 120px;
   color: #807d7d;
   font-size: 14px;
 }

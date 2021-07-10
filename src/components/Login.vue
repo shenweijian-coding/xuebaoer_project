@@ -10,7 +10,7 @@
       <div class="login-con">
         <div class="login login-left">
           <div class="title">示例截图</div>
-            <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/05/16223739661.png" alt="微信公众号">
+            <img src="http://clumsybird.work/static/img/img3.jpg" alt="微信公众号">
         </div>
         <div class="login login-right">
           <div class="title">学宝儿素材网</div>
@@ -26,7 +26,7 @@
           </div>
           </div>
           <div v-if="!isShowLogin">
-            <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/qrcode_for_gh_7f31b0892ccf_258.jpg" alt="微信公众号">
+            <img src="http://clumsybird.work/static/img/img2.jpg" alt="微信公众号">
             <div>扫码关注回复&nbsp;<strong>我要账号</strong></div>
             <div style="width:100%" class="flex2" @click="goLogin"><div>已有账号?</div><div class="get-id">立即登录</div></div>
           </div>

@@ -2,11 +2,11 @@
   <div>
     <!-- 联系方式 -->
     <div class="right-contact">
-      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/wxerweima.png" alt="微信公众二维码">
+      <img src="http://clumsybird.work/static/img/img5.jpg" alt="微信公众二维码">
     </div>
     <!-- 推销广告 -->
     <div class="right-banner">
-      <img src="https://yuanxiaoshen.com/wp-content/uploads/2021/02/qrcode_for_gh_7f31b0892ccf_258.jpg" alt="微信小程序二维码">
+      <img src="http://clumsybird.work/static/img/img2.jpg" alt="微信小程序二维码">
     </div>
       <!-- 二维码 -->
     <div class="right-banner">

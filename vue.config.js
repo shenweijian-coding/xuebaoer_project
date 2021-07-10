@@ -6,14 +6,18 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   productionSourceMap: false,
-  configureWebpack: {
-    plugins: [
-      new CompressionPlugin({
-        test: productionGzipExtensions, // 需要压缩的文件正则
-        threshold: 10240, // 文件大小大于这个值时启用压缩
-        deleteOriginalAssets: true // 压缩后保留原文件
-      })
-    ]
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      return {
+        plugins: [
+          new CompressionPlugin({
+            test: productionGzipExtensions, // 需要压缩的文件正则
+            threshold: 10240, // 文件大小大于这个值时启用压缩
+            deleteOriginalAssets: true // 压缩后保留原文件
+          })
+        ]
+      }
+    }
   },
   chainWebpack: config => {
     config.when(process.env.NODE_ENV === 'production', config => {
